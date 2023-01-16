@@ -1,0 +1,26 @@
+.header {
+  padding: 18px 70px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.header__logo {
+  margin-right: auto;
+  width: 38px;
+  height: 38px;
+  background: url('../../images/logo.svg') no-repeat
+}
+
+.header__link {
+  color: inherit;
+  text-decoration: none;
+  margin-right: 30px;
+}
+
+.header__link_type_sign-in {
+  padding: 8px 20px;
+  border-radius: 3px;
+  background-color: #3456F3;
+  color: white
+}
