@@ -1,0 +1,21 @@
+.promo {
+  margin: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F5F5F5;
+}
+
+.promo__banner {
+  margin: 160px 0 151px;
+  max-width: 730px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.promo__navtab{
+  margin-bottom: 30px;
+}

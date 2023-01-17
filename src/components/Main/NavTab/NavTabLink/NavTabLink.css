@@ -1,0 +1,11 @@
+.navtab-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 36px;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.33;
+}
