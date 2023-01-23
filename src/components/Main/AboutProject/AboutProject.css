@@ -1,0 +1,12 @@
+.about-page {
+  padding: 110px 70px 0;
+}
+
+.about-page__title {
+  margin-bottom: 70px;
+}
+
+.about-page__facts {
+  display: flex;
+  gap: 40px
+}

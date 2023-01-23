@@ -17,6 +17,7 @@
 body {
   margin: 0;
   font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 400;
   background-color: #FAFAFA;
   color: black;
   -webkit-font-smoothing: antialiased;

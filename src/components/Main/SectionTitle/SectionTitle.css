@@ -1,0 +1,13 @@
+.section-title {
+  margin: 0 0 23px;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+.section-title__line {
+  content: '';
+  display: block;
+  background-color: black;
+  height: 1px;
+}
