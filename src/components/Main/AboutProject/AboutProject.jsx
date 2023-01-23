@@ -11,6 +11,10 @@ function AboutProject() {
         <AboutProjectFact title="Дипломный проект включал 5 этапов" body="Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки." />
         <AboutProjectFact title="На выполнение диплома ушло 5 недель" body="У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься." />
       </div>
+      <div className="about-project__progress">
+        <div className="about-project__backend" />
+        <div className="about-project__frontend" />
+      </div>
     </section>
   );
 }
