@@ -1,13 +1,8 @@
 .section-title {
-  margin: 0 0 23px;
+  margin: 0;
   font-weight: 400;
   font-size: 22px;
   letter-spacing: -0.04em;
-}
-
-.section-title__line {
-  content: '';
-  display: block;
-  background-color: black;
-  height: 1px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid black;
 }
