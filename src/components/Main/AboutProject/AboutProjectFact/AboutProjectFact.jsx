@@ -1,9 +1,9 @@
 import React from 'react';
 import './AboutProjectFact.css';
 
-function AboutProjectFact({ classname, title, body }) {
+function AboutProjectFact({ className, title, body }) {
   return (
-    <article className={`about-project-fact ${classname}`}>
+    <article className={`about-project-fact ${className}`}>
       <h3 className="about-project-fact__title">
         {title}
       </h3>
