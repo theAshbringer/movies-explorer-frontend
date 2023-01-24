@@ -1,0 +1,15 @@
+.portfolio {
+  padding: 0 70px;
+}
+
+.portfolio__title {
+  margin: 0 0 50px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #A0A0A0;
+}
+
+.portfolio__item {
+  margin-bottom: 20px;
+}
