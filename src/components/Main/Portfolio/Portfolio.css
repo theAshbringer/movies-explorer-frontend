@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 0 70px;
+  padding: 0 70px 115px;
 }
 
 .portfolio__title {
@@ -11,5 +11,13 @@
 }
 
 .portfolio__item {
+  padding-bottom: 9px;
   margin-bottom: 20px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.portfolio__item:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
 }

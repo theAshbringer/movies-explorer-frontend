@@ -1,9 +1,7 @@
 .work {
-  padding-bottom: 19px;
   display: flex;
   justify-content: space-between;
   text-decoration: none;
-  border-bottom: 1px solid #E8E8E8;
   color: black;
 }
 
