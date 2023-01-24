@@ -1,5 +1,5 @@
 .about-me {
-  padding: 110px 70px 100px;
+  padding: 111px 70px 100px;
 }
 
 
@@ -15,7 +15,7 @@
 .about-me__text {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .about-me__name {
@@ -48,4 +48,5 @@
   width: 270px;
   height: 327px;
   object-fit: cover;
+  border-radius: 10px;
 }

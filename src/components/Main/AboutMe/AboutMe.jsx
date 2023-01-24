@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import './AboutMe.css';
+import me from '../../../images/me.jpg';
 
 function AboutMe() {
   return (
@@ -19,7 +20,7 @@ function AboutMe() {
           </p>
           <p className="about-me__gh">Github</p>
         </div>
-        <img className="about-me__photo" src="../../../images/me.png" alt="Моё фото" />
+        <img className="about-me__photo" src={me} alt="Моё фото" />
       </article>
     </section>
   );
