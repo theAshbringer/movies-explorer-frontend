@@ -1,10 +1,10 @@
 import React from 'react';
-import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
 
 function App() {
   return (
     <div>
-      <Main />
+      <Movies />
     </div>
   );
 }
