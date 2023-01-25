@@ -21,3 +21,10 @@
   margin-bottom: 0;
   border-bottom: none;
 }
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+  .portfolio {
+    padding: 0 50px 79px;
+  }
+  
+}

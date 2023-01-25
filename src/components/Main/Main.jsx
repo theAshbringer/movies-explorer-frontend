@@ -10,9 +10,9 @@ import Footer from '../../shared/Footer/Footer';
 
 export default function Main() {
   return (
-    <div className="main">
+    <div className="main-page">
       <Header />
-      <main>
+      <main className="main-page__main">
         <Promo />
         <AboutProject />
         <Techs />

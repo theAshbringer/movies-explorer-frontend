@@ -19,3 +19,16 @@
 .promo__navtab{
   margin-bottom: 30px;
 }
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+  .promo {
+    margin: 0 20px;
+  }
+
+  .promo__banner {
+    margin: 350px 0 314px;
+    max-width: 680px;
+    font-size: 40px;
+    line-height: 1.3;
+  }
+}

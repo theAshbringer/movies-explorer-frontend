@@ -32,3 +32,11 @@
 .footer__link:last-of-type {
   margin-right: 0;
 }
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+
+  .footer {
+    padding: 0 30px;
+  }
+  
+}
