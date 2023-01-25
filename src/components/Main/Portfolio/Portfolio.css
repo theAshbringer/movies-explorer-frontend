@@ -24,7 +24,27 @@
 
 @media screen and (min-width: 650px) and (max-width: 850px)  {
   .portfolio {
-    padding: 0 50px 79px;
+    padding: 0 50px 85px;
+  }
+
+  .portfolio__item {
+    padding-bottom: 12px;
   }
   
+}
+
+@media screen and (max-width: 649px)  {
+  .portfolio {
+    padding: 0 14px 70px;
+  }
+
+  .portfolio__title {
+    margin: 0 0 40px;
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .portfolio__item {
+    padding-bottom: 19px;
+  }
 }

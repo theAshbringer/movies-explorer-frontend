@@ -10,3 +10,13 @@
   font-size: 12px;
   line-height: 1.33;
 }
+
+@media screen and (max-width: 649px)  {
+  .navtab-link {
+    width: 82px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 1.6;
+    border-radius: 6px;
+  }
+}

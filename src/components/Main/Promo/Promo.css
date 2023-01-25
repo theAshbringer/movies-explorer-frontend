@@ -32,3 +32,19 @@
     line-height: 1.3;
   }
 }
+
+@media screen and (max-width: 649px)  {
+  .promo {
+    margin: 0 14px;
+  }
+
+  .promo__banner {
+    margin: 220px 0 212px;
+    font-size: 29px;
+    line-height: 1.28;
+  }
+
+  .promo__navtab{
+    margin-bottom: 17px;
+  }
+}

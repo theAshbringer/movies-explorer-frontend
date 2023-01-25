@@ -20,6 +20,7 @@
   line-height: 1.21;
   text-align: center;
 }
+
 .progress__section_type_backend {
   flex: 1 1 auto;
 }
@@ -57,4 +58,38 @@
     margin-bottom: 93px;
     gap: 30px
   }
+}
+
+@media screen and (max-width: 649px)  {
+  .about-project {
+    padding: 72px 18px;
+  }
+
+  .about-project__facts {
+    flex-direction: column;
+    margin-bottom: 60px;
+    gap: 57px
+  }
+
+  .progress {
+    font-size: 11px;
+    line-height: 1.18;
+  }
+
+  .progress__label {
+    padding: 10px 0 0;
+  }
+
+  .progress__duration {
+    padding: 11px;
+  }
+
+  .about-project__title {
+    margin-bottom: 60px;
+  }
+
+  .progress__section_type_frontend {
+    flex: 3.5 1 auto;
+  }
+  
 }
