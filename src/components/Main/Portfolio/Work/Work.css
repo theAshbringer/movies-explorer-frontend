@@ -3,17 +3,42 @@
   justify-content: space-between;
   text-decoration: none;
   color: black;
+  font-size: 30px;
 }
 
 .work__title {
+  font-size: inherit;
   margin: 0;
-  font-size: 30px;
   line-height: 1.67;
   font-weight: normal;
   letter-spacing: -0.04em;
 }
 
 .work__arrow {
-  font-size: 30px;
+  font-size: inherit;
   line-height: 2;
+}
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+  .work {
+    font-size: 28px;
+  }
+  
+  .work__title {
+    line-height: 1.79;
+  }
+}
+
+@media screen and (max-width: 649px)  {
+  .work {
+    font-size: 18px;
+  }
+
+  .work__title {
+    line-height: 1.56;
+  }
+
+  .work__arrow {
+    line-height: 1.56;
+  }
 }

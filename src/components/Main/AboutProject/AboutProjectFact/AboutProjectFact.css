@@ -18,3 +18,37 @@
   font-size: 14px;
   line-height: 1.43;
 }
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+  .about-project-fact {
+    max-width: 319px;
+  }
+  
+  .about-project-fact__title {
+    margin: 0 0 22px;
+    font-size: 20px;
+    line-height: 1.22;
+  }
+  
+  .about-project-fact__body {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 649px)  {
+  .about-project-fact {
+    width: 100%;
+    max-width: unset;
+  }
+  
+  .about-project-fact__title {
+    margin: 0 0 16px;
+    font-size: 18px;
+  }
+  
+  .about-project-fact__body {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+}
