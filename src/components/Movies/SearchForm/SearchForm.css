@@ -1,5 +1,5 @@
 .search-form {
-  padding: 19px;
+  padding: 16px 24px 16px 37px;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -7,33 +7,51 @@
   border-radius: 9px;
 }
 
+.search-form__magnifier {
+  width: 14px;
+  height: 14px;
+}
+
 .search-form__input {
+  margin-left: 17px;
   order: 1;
   border: none;
+  flex-grow: 1;
+}
+
+.search-form__input::placeholder {
+  font-size: 18px;
+  line-height: 1.11;
 }
 
 .search-form__btn {
   order: 2;
   margin-right: 19px;
-  padding: 17px 40px;
+  padding: 10px 34px 8px;
   color: #fff;
-  background-image: url('../../../images/lupa.svg');
-  background-repeat: no-repeat;
-  background-position: center;
   background-color: #3456F3;
   border-radius: 48px;
   border: none;
 }
 
 .search-form__slider {
-  order: 3;
+  order: 4;
+  margin-right: 14px;
   -webkit-tap-highlight-color: transparent;
 }
 
 .search-form__divider {
   order: 3;
-  margin-right: 19px;
+  margin-right: 29px;
   height: 40px;
   width: 1px;
   background: #CBCBCB;
+}
+
+.search-form__label {
+  order: 5;
+  margin: 0;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.38;
 }
