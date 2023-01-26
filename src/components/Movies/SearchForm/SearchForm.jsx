@@ -9,6 +9,7 @@ function SearchForm() {
       <button className="search-form__btn" type="submit" aria-label="Поиск" />
       <div className="search-form__divider" />
       <ToggleSlider className="search-form__slider" />
+      <h4 className="search-form__label">Короткометражки</h4>
     </form>
   );
 }
