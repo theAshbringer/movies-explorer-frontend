@@ -1,5 +1,6 @@
 .main-page {
   display: grid;
+  justify-content: center;
 }
 
 .main-page__main {
