@@ -21,6 +21,5 @@ module.exports = {
     quotes: ['error', 'single'],
     'react/prop-types': 'off',
     'import/no-extraneous-dependencies': ['off', { devDependencies: false, optionalDependencies: false, peerDependencies: false }],
-
   },
 };
