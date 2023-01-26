@@ -3,13 +3,19 @@ import './Movies.css';
 import Header from '../../shared/Header/Header';
 import Footer from '../../shared/Footer/Footer';
 import SearchForm from './SearchForm/SearchForm';
+import Divider from '../../shared/Divider/Divider';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
 
 export default function Movies() {
   return (
-    <div className="movie-page">
+    <div className="movies-page">
       <Header />
-      <main className="movie-page__main">
-        <SearchForm />
+      <main className="movies-page__main">
+        <section className="movies-page__search-form">
+          <SearchForm />
+        </section>
+        <Divider />
+        <MoviesCardList />
       </main>
       <Footer />
     </div>

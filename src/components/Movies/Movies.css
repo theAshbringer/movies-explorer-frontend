@@ -1,3 +1,16 @@
-.movie-page {
-  padding: 0 70px;
+.movies-page {
+  display: grid;
+  justify-content: center;
+}
+
+.movies-page__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movies-page__search-form {
+  max-width: 1140px;
+  width: 100%;
+  padding: 70px 74px 69px;
 }
