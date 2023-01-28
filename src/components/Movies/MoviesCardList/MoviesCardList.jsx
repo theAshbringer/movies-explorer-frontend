@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 
 function MoviesCardList() {
   return (
-    <article className="movies">
+    <section className="movies">
       <ul className="movies__cards">
         <li>
           <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
@@ -27,8 +27,23 @@ function MoviesCardList() {
         <li>
           <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
         </li>
+        <li>
+          <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
+        </li>
+        <li>
+          <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
+        </li>
+        <li>
+          <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
+        </li>
+        <li>
+          <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
+        </li>
+        <li>
+          <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
+        </li>
       </ul>
-    </article>
+    </section>
   );
 }
 
