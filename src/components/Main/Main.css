@@ -1,5 +1,8 @@
 .main-page {
+  min-height: 100vh;
   display: grid;
+  grid-template-columns: 1280px;
+  grid-template-rows: min-content auto min-content;
   justify-content: center;
 }
 
