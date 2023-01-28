@@ -23,7 +23,7 @@
 
 @media screen and (min-width: 650px) and (max-width: 850px)  {
   .promo {
-    margin: 0 20px;
+    margin: 20px 20px 0;
   }
 
   .promo__banner {
@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 649px)  {
   .promo {
-    margin: 0 14px;
+    margin: 14px 14px 0;
   }
 
   .promo__banner {
