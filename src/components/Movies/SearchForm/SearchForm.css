@@ -42,7 +42,6 @@
 
 .search-form__slider {
   order: 4;
-  margin-right: 14px;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -63,16 +62,10 @@
 }
 
 
-
 @media screen and (min-width: 650px) and (max-width: 850px)  {
 
   .search-form__container {
     padding: 80px 30px 109px;
-  }
-
-  .search-form__label {
-    font-size: 13px;
-    line-height: 1.38;
   }
 
   .search-form__divider {

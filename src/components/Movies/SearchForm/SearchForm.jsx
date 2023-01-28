@@ -13,8 +13,7 @@ function SearchForm({ className = '' }) {
           <Magnifier className="search-form__magnifier" fill="white" />
         </button>
         <div className="search-form__divider" />
-        <ToggleSlider className="search-form__slider" />
-        <h4 className="search-form__label">Короткометражки</h4>
+        <ToggleSlider className="search-form__slider">Короткометражки</ToggleSlider>
       </form>
     </section>
   );
