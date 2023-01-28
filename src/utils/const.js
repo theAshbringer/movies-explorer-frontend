@@ -48,10 +48,10 @@ export const movies = [
     image: 'https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg',
     duration: '1ч 47м',
   },
-  {
-    _id: 9,
-    nameRU: '33 слова о дизайне',
-    image: 'https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg',
-    duration: '1ч 47м',
-  },
+  // {
+  //   _id: 9,
+  //   nameRU: '33 слова о дизайне',
+  //   image: 'https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg',
+  //   duration: '1ч 47м',
+  // },
 ];

@@ -1,7 +1,7 @@
 .movies-page {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1280px;
+  grid-template-columns: minmax(10px, 1280px);
   grid-template-rows: min-content auto min-content;
   justify-content: center;
 }
@@ -22,4 +22,12 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.25;
+}
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+
+  .movies-page__more {
+    margin: 48px 0 80px;
+  }
+  
 }

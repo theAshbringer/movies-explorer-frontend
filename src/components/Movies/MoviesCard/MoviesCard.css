@@ -50,3 +50,19 @@
   line-height: 1.18;
   color: #A0A0A0;
 }
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+
+  .movie {
+    grid-template-rows: 190px min-content;
+  }
+
+  .movie__duration {
+    margin: 15px 0 14px 16px;
+  }
+
+  .movie__title {
+    padding: 14px 12px 0 16px;
+  }
+  
+}
