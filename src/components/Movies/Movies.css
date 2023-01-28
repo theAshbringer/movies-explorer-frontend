@@ -1,5 +1,6 @@
 .movies-page {
   display: grid;
+  grid-template-columns: 1280px;
   justify-content: center;
 }
 
@@ -10,9 +11,9 @@
 }
 
 .movies-page__search-form {
-  max-width: 1140px;
+  box-sizing: border-box;
   width: 100%;
-  padding: 70px 74px 69px;
+  padding: 70px 70px 69px;
 }
 
 .movies-page__more {
