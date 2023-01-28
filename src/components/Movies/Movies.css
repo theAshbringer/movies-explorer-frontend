@@ -12,12 +12,6 @@
   align-items: center;
 }
 
-.movies-page__search-form {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 70px 70px 69px;
-}
-
 .movies-page__more {
   margin: 48px 0 80px;
   width: 320px;

@@ -11,9 +11,7 @@ export default function Movies() {
     <div className="movies-page">
       <Header />
       <main className="movies-page__main">
-        <section className="movies-page__search-form">
-          <SearchForm />
-        </section>
+        <SearchForm />
         <Divider />
         <MoviesCardList />
         <button className="movies-page__more" type="button">Ещё</button>

@@ -7,6 +7,12 @@
   border-radius: 9px;
 }
 
+.search-form__container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 70px 70px 69px;
+}
+
 .search-form__magnifier {
   width: 14px;
   height: 14px;
