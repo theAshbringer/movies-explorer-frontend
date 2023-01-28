@@ -28,7 +28,6 @@ function MoviesCardList() {
           <MoviesCard title="33 слова о дизайне" image="https://w-dog.ru/wallpapers/9/17/443247455488104/novaya-zelandiya-priroda-nebo-oblaka-ozero-doroga-pejzazh-gory.jpg" duration="1ч 47м" />
         </li>
       </ul>
-      <button className="movies__more" type="button">Ещё</button>
     </article>
   );
 }

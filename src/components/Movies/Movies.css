@@ -14,3 +14,15 @@
   width: 100%;
   padding: 70px 74px 69px;
 }
+
+.movies-page__more {
+  margin: 48px 0 80px;
+  width: 320px;
+  padding: 11px 0;
+  background-color: transparent;
+  border: solid 1px #E8E8E8;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.25;
+}

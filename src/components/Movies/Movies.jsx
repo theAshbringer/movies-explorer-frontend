@@ -16,6 +16,7 @@ export default function Movies() {
         </section>
         <Divider />
         <MoviesCardList />
+        <button className="movies-page__more" type="button">Ещё</button>
       </main>
       <Footer />
     </div>
