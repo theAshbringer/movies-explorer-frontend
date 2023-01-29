@@ -56,3 +56,15 @@
   font-size: 13px;
   line-height: 1.38;
 }
+
+@media screen and (max-width: 650px) {
+
+  .switch {
+    margin-right: 13px;
+  }
+
+  .switch__label {
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

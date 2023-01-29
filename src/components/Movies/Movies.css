@@ -13,6 +13,7 @@
 }
 
 .movies-page__more {
+  cursor: pointer;
   margin: 48px 0 80px;
   width: 320px;
   padding: 11px 0;
@@ -24,10 +25,12 @@
   line-height: 1.25;
 }
 
-@media screen and (min-width: 650px) and (max-width: 850px)  {
+@media screen and (max-width: 650px)  {
 
   .movies-page__more {
+    padding: 10px 0;
     margin: 48px 0 80px;
+    width: 240px;
   }
   
 }
