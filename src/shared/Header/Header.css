@@ -52,27 +52,26 @@
 
 @media screen and (min-width: 650px) and (max-width: 850px)  {
   .header {
-    padding: 18px 30px;
-  }
-
-  .header__current-user {
-    display: none;
+    padding: 15px 30px;
+    justify-content: space-between;
   }
 
   .header__burger {
-    position: fixed;
     display: block;
-    top: 16px;
-    right: 16px;
     z-index: 2;
+  }
+
+  .header__logo {
+    margin: 3px 0;
   }
 }
 
 @media screen and (max-width: 649px)  {
   .header {
-    padding: 18px 14px;
+    padding: 16px 14px;
     font-size: 10px;
     line-height: 1.6;
+    justify-content: space-between;
   }
 
   .header__link {
@@ -81,5 +80,10 @@
 
   .header__link_type_sign-in {
     padding: 5px 12px;
+  }
+
+  .header__burger {
+    display: block;
+    z-index: 2;
   }
 }

@@ -65,7 +65,7 @@
   border-radius: 6px;
 }
 
-@media screen and (min-width: 650px) and (max-width: 850px)  {
+  @media screen and (max-width: 850px)  {
   .current-user {
     padding: 160px 0 72px;
     position: fixed;
@@ -109,14 +109,20 @@
   .current-user__profile-logo {
     margin-left: 22px;
   }
-  
 }
 
 @media screen and (max-width: 649px)  {
-  /* .current-user {
-    padding: 18px 14px;
-    font-size: 10px;
-    line-height: 1.6;
-  }   */
+  .current-user {
+    padding: 145px 0 48px;
+    gap: 24px;
+    left: 0;
+  }
 
+  .current-user__profile-logo {
+    margin-left: 13px;
+  }
+
+  .current-user__link_active::after {
+    bottom: -9px;
+  }
 }

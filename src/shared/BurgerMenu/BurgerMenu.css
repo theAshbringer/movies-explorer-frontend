@@ -12,5 +12,26 @@
   background-image: url('../../images/close.svg');
 }
 
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+
+  .burger_opened {
+    position: fixed;
+    top: 16px;
+    right: 17px;
+  }
+}
+
 @media screen and (max-width: 649px)  {
+  .burger {
+    background-size: 23px;
+    width: 40px;
+    height: 43px;
+  }
+
+  .burger_opened {
+    background-size: 30px;
+    position: fixed;
+    top: 7px;
+    right: 9px;
+  }
 }
