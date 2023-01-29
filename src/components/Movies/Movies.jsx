@@ -9,7 +9,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 export default function Movies() {
   return (
     <div className="movies-page">
-      <Header />
+      <Header isLoggedIn />
       <main className="movies-page__main">
         <SearchForm />
         <Divider />
