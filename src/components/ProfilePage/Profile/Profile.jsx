@@ -78,7 +78,7 @@ export default function Profile() {
 
   return (
     <section className="profile">
-      <h1 className="profile__hello">Привет, Кристина!</h1>
+      <h1 className="profile__hello">Привет, пользователь!</h1>
       {!isEdit
         ? profileData
         : editForm}
