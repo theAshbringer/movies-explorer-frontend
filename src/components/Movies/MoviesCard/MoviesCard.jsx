@@ -1,9 +1,10 @@
 import React from 'react';
 import './MoviesCard.css';
 import LikeButton from '../../../shared/LikeButton/LikeButton';
+import DeleteButton from '../../../shared/DeleteButton/DeleteButton';
 
 function MoviesCard({
-  title, image, duration, type,
+  title, image, duration, type = 'like',
 }) {
   return (
     <article className="movie">
@@ -11,7 +12,7 @@ function MoviesCard({
       <img src={image} alt={title} className="movie__cover" />
       {type !== 'saved'
         ? <LikeButton className="movie__like" />
-        : <div>х</div>}
+        : <DeleteButton className="movie__delete" />}
       <p className="movie__duration">{duration}</p>
     </article>
   );
