@@ -1,0 +1,14 @@
+.wide-submit-btn {
+  padding: 13px 0 15px;
+  width: 100%;
+  border: none;
+  color: white;
+  background-color: #3456F3;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 650px)  {
+  .wide-submit-btn {
+    padding: 15px 0;
+  }
+}
