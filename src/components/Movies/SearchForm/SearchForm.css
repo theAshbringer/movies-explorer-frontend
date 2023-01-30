@@ -1,0 +1,126 @@
+.search-form__container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 70px 70px 69px;
+}
+
+.search-form {
+  position: relative;
+  padding: 16px 24px 16px 37px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 9px;
+}
+
+.search-form__magnifier {
+  width: 14px;
+  height: 14px;
+}
+
+.search-form__input {
+  padding: 5px 0;
+  margin-left: 17px;
+  order: 1;
+  border: none;
+  flex: 1 1 auto;
+}
+
+.search-form__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-form__input::placeholder {
+  font-size: 18px;
+  line-height: 1.11;
+}
+
+.search-form__btn {
+  order: 2;
+  margin-right: 19px;
+  padding: 10px 34px 8px;
+  color: #fff;
+  background-color: #3456F3;
+  border-radius: 48px;
+  border: none;
+}
+
+.search-form__slider {
+  order: 4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search-form__divider {
+  order: 3;
+  margin-right: 29px;
+  height: 40px;
+  width: 1px;
+  background: #CBCBCB;
+}
+
+.search-form__label {
+  order: 5;
+  margin: 0;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+
+@media screen and (min-width: 650px) and (max-width: 850px)  {
+
+  .search-form__container {
+    padding: 80px 30px 109px;
+  }
+
+  .search-form__divider {
+    margin-right: 19px;
+  }
+
+  .search-form {
+    padding: 16px 20px 16px 28px;
+  }
+  
+}
+
+
+@media screen and (max-width: 650px) {
+
+  .search-form__container {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 80px 10px 109px;
+  }
+
+  .search-form {
+    padding: 19px;
+  }
+
+  .search-form > .search-form__magnifier {
+    display: none;
+  }
+
+  .search-form__input {
+    margin-left: 0;
+    min-width: 0;
+  }
+  .search-form__btn {
+    margin-right: 0;
+  }
+
+  .search-form__divider {
+    display: none;
+  }
+
+  .search-form__input::placeholder {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .search-form__slider {
+    position: absolute;
+    left: calc(50% - 148px /2);
+    bottom: -65px;
+  }
+}
