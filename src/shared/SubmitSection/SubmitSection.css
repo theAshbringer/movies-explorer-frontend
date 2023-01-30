@@ -21,3 +21,11 @@
 .submit-section__submit {
   margin: 0 0 16px;
 }
+
+@media screen and (max-width: 650px)  {
+
+  .submit-section__container {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}

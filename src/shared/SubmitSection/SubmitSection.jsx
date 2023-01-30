@@ -14,7 +14,7 @@ function SubmitSection({ isRegistered = false }) {
   const notRegisteredYet = {
     text: 'Ещё не зарегистрированы?',
     link: '/sign-up',
-    linkText: 'Зарегистрироваться',
+    linkText: 'Регистрация',
     buttonText: 'Войти',
   };
 
