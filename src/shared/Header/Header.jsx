@@ -4,6 +4,7 @@ import './Header.css';
 import CurrentUser from './CurrentUser/CurrentUser';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Modal from '../Modal/Modal';
+import Logo from '../Logo/Logo';
 
 export default function Header({ isLoggedIn = false }) {
   const getWidth = () => window.innerWidth
@@ -31,7 +32,7 @@ export default function Header({ isLoggedIn = false }) {
 
   return (
     <header className="header">
-      <div className="header__logo" />
+      <Logo className="header__logo" />
       {!isLoggedIn ? (
         <>
           <a className="header__link header__link_type_sign-up" href="/">Регистрация</a>
