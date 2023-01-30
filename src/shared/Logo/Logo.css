@@ -4,9 +4,3 @@
   background: url('../../images/logo.svg') no-repeat center;
   flex-shrink: 0;
 }
-
-@media screen and (min-width: 650px) and (max-width: 850px)  {
-  .logo {
-    margin: 3px 0;
-  }
-}

@@ -6,13 +6,6 @@
   line-height: 1.33;
 }
 
-.header__logo {
-  width: 38px;
-  height: 38px;
-  background: url('../../images/logo.svg') no-repeat center;
-  flex-shrink: 0;
-}
-
 .header__link {
   font-weight: 500;
   color: inherit;
