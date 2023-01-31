@@ -24,7 +24,7 @@ function MyLink({
         )}
       {type === 'anchor'
         && (
-          <a className={`my-link ${className}`} {...otherProps}>
+          <a className={`my-link ${className}`} {...otherProps} target="_blank">
             {children}
           </a>
         )}
