@@ -7,7 +7,7 @@ export default function Footer() {
       <p className="footer__grey">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <div className="footer__bottom-text">
         <p className="footer__copyright">
-          &#169; 2020
+          &#169; 2023
         </p>
         <a href="https://practicum.yandex.ru/" className="footer__link">Яндекс.Практикум</a>
         <a href="https://github.com/theAshbringer" className="footer__link">Github</a>
