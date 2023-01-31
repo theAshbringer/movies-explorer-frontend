@@ -16,10 +16,23 @@
   line-height: 16px;
 }
 
-.input__input[type=password]:not(:placeholder-shown) {
+.input__input:hover, .input__input:focus {
+  background-color: #ebebeb;
+}
+
+.input__input:focus {
+  outline: none;
+}
+
+.input__input_invalid {             
+  color: #EE3465;
+}
+
+@-moz-document url-prefix() {
+  .input__input[type=password]:not(:placeholder-shown) {
   font-size: 6px;
   letter-spacing: 0.35em;
-}
+}} 
 
 .input__label {
   margin-bottom: 10px;
@@ -28,9 +41,9 @@
   line-height: 1.2;
 }
 
-.input__input:invalid {
+/* .input__input:invalid {
   color: #EE3465;
-}
+} */
 
 .input__error {
   width: 100%;

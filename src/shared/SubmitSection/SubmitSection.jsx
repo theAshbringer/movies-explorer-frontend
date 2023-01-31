@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
+import MyLink from '../MyLink/MyLink';
 import './SubmitSection.css';
 
-function SubmitSection({ isRegistered = false }) {
+function SubmitSection({ onSubmit, isRegistered = false }) {
   const alreadyRegistered = {
     text: 'Уже зарегистрированы?',
     link: '/sign-in',
@@ -22,10 +22,10 @@ function SubmitSection({ isRegistered = false }) {
 
   return (
     <div className="submit-section">
-      <Button mode="solidWide" className="submit-section__submit">{content.buttonText}</Button>
+      <Button mode="solidWide" className="submit-section__submit" onSubmit={onSubmit}>{content.buttonText}</Button>
       <div className="submit-section__container">
         <p className="submit-section__text">{content.text}</p>
-        <Link className="submit-section__link" to={content.link}>{content.linkText}</Link>
+        <MyLink className="submit-section__link" to={content.link}>{content.linkText}</MyLink>
       </div>
     </div>
   );
