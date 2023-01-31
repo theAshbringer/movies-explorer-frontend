@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CurrentUser from './CurrentUser/CurrentUser';
+import Navigation from './Navigation/Navigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Modal from '../Modal/Modal';
 import MyLink from '../MyLink/MyLink';
@@ -42,11 +42,11 @@ export default function Header({ isLoggedIn = false }) {
       )
         : (
           <>
-            {width > 850 && <CurrentUser className="header__current-user" />}
+            {width > 850 && <Navigation className="header__current-user" />}
             {isMenuOpened
               && (
                 <Modal>
-                  <CurrentUser className="header__current-user" isVisible={isMenuOpened} />
+                  <Navigation className="header__current-user" isVisible={isMenuOpened} />
                 </Modal>
               )}
             <BurgerMenu className="header__burger" isOpened={isMenuOpened} handleClick={handleOpen} />

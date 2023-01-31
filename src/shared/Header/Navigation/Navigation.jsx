@@ -1,6 +1,6 @@
 import React from 'react';
 import MyLink from '../../MyLink/MyLink';
-import './CurrentUser.css';
+import './Navigation.css';
 
 function CurrentUser({ isVisible = true, className = '' }) {
   return (
