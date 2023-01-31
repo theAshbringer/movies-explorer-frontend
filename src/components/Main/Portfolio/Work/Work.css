@@ -1,8 +1,6 @@
 .work {
   display: flex;
   justify-content: space-between;
-  text-decoration: none;
-  color: black;
   font-size: 30px;
 }
 
@@ -23,7 +21,7 @@
   .work {
     font-size: 28px;
   }
-  
+
   .work__title {
     line-height: 1.79;
   }

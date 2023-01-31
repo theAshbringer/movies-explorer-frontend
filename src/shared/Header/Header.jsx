@@ -4,12 +4,13 @@ import './Header.css';
 import CurrentUser from './CurrentUser/CurrentUser';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Modal from '../Modal/Modal';
+import MyLink from '../MyLink/MyLink';
 import Logo from '../Logo/Logo';
 
 export default function Header({ isLoggedIn = false }) {
   const getWidth = () => window.innerWidth
-  || document.documentElement.clientWidth
-  || document.body.clientWidth;
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
 
   const [width, setWidth] = useState(getWidth());
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -35,18 +36,18 @@ export default function Header({ isLoggedIn = false }) {
       <Logo className="header__logo" />
       {!isLoggedIn ? (
         <>
-          <a className="header__link header__link_type_sign-up" href="/">Регистрация</a>
-          <a className="header__link header__link_type_sign-in" href="/">Войти</a>
+          <MyLink className="header__link header__link_type_sign-up" to="/sign-up">Регистрация</MyLink>
+          <MyLink className="header__link header__link_type_sign-in" to="/sign-in">Войти</MyLink>
         </>
       )
         : (
           <>
-            {width > 850 && <CurrentUser className="header__current-user" /> }
+            {width > 850 && <CurrentUser className="header__current-user" />}
             {isMenuOpened
               && (
-              <Modal>
-                <CurrentUser className="header__current-user" isVisible={isMenuOpened} />
-              </Modal>
+                <Modal>
+                  <CurrentUser className="header__current-user" isVisible={isMenuOpened} />
+                </Modal>
               )}
             <BurgerMenu className="header__burger" isOpened={isMenuOpened} handleClick={handleOpen} />
           </>
