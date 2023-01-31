@@ -4,6 +4,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Main from '../Main/Main';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route element={<SavedMovies />} path="/saved-movies" />
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<Main />} path="/" />
+        <Route element={<NotFound />} path="/*" />
       </Routes>
     </div>
   );
