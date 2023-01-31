@@ -1,0 +1,36 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input__input {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+  background-color: #F4F4F4;
+  border: none;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.input__label {
+  margin-bottom: 10px;
+  color: #A0A0A0;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.input__input:invalid {
+  color: #EE3465;
+}
+
+.input__error {
+  width: 100%;
+  margin: 10px 0 0;
+  color: #EE3465;
+  font-size: 10px;
+  line-height: 1.2;
+}
