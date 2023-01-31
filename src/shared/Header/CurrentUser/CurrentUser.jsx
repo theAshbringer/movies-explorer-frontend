@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import MyLink from '../../MyLink/MyLink';
 import './CurrentUser.css';
 
 function CurrentUser({ isVisible = true, className = '' }) {
@@ -8,19 +8,19 @@ function CurrentUser({ isVisible = true, className = '' }) {
   return (
     <ul className={`current-user ${className} ${isVisible ? 'current-user_visible' : ''}`}>
       <li className="current-user__item current-user__item_type_main-page">
-        <NavLink className={activeLinkClass} to="/">Главная</NavLink>
+        <MyLink className={activeLinkClass} type="nav" to="/">Главная</MyLink>
       </li>
       <li className="current-user__item current-user__item_type_movies">
-        <NavLink className={activeLinkClass} to="/movies">Фильмы</NavLink>
+        <MyLink className={activeLinkClass} type="nav" to="/movies">Фильмы</MyLink>
       </li>
       <li className="current-user__item current-user__item_type_saved-movies">
-        <NavLink className={activeLinkClass} to="/saved-movies">Сохранённые фильмы</NavLink>
+        <MyLink className={activeLinkClass} type="nav" to="/saved-movies">Сохранённые фильмы</MyLink>
       </li>
       <li className="current-user__item current-user__item_type_profile">
-        <NavLink className="current-user__link" to="/profile">
+        <MyLink className="current-user__link" type="nav" to="/profile">
           <span className="current-user__profile-label">Аккаунт</span>
           <div className="current-user__profile-logo" />
-        </NavLink>
+        </MyLink>
       </li>
     </ul>
   );
