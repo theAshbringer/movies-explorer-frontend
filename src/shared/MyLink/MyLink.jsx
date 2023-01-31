@@ -4,15 +4,17 @@ import './MyLink.css';
 
 function MyLink({
   type = 'simple',
-  className,
+  className = '',
+  activeClassName = '',
   children,
   ...otherProps
 }) {
+  const activeLinkClass = ({ isActive }) => `my-link ${className} ${isActive ? activeClassName : ''}`;
   return (
     <>
       {type === 'nav'
         && (
-          <NavLink className={`my-link ${className}`} {...otherProps}>
+          <NavLink className={activeLinkClass} {...otherProps}>
             {children}
           </NavLink>
         )}
