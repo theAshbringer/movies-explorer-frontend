@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../../shared/Input/Input';
+import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 
 export default function Profile() {
@@ -78,7 +79,7 @@ export default function Profile() {
 
   return (
     <section className="profile">
-      <h1 className="profile__hello">Привет, пользователь!</h1>
+      <PageTitle className="profile__title">Привет, пользователь!</PageTitle>
       {!isEdit
         ? profileData
         : editForm}

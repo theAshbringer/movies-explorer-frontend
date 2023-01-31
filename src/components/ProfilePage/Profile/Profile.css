@@ -7,12 +7,8 @@
   align-items: center;
 }
 
-.profile__hello {
+.profile__title {
   margin: 0 0 15.2vh;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 1.21;
-  letter-spacing: -0.04em;
 }
 
 .profile__data {
@@ -84,7 +80,7 @@
     padding: 23vh 0 26.2vh;
   }
 
-  .profile__hello {
+  .profile__title {
     margin: 0 0 7.8vh;
   }
 }
@@ -95,7 +91,7 @@
     padding: 9vh 30px 5.1vh;
   }
 
-  .profile__hello {
+  .profile__title {
     margin: 0 0 8.2vh;
   }
 
