@@ -1,9 +1,10 @@
 import React from 'react';
+import MyLink from '../MyLink/MyLink';
 import './Logo.css';
 
 function Logo({ className = '' }) {
   return (
-    <div className={`logo ${className}`} />
+    <MyLink className={`logo ${className}`} to="/" />
   );
 }
 
