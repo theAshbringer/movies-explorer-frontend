@@ -1,12 +1,12 @@
 import React from 'react';
+import { Link } from 'react-scroll';
 import './NavTabLink.css';
 
-function NavTabLink({ children }) {
+function NavTabLink({ to, children, ...otherProps }) {
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a className="navtab-link">
+    <Link className="navtab-link" smooth spy to={to} {...otherProps}>
       {children}
-    </a>
+    </Link>
   );
 }
 

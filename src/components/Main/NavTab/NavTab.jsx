@@ -5,9 +5,9 @@ import './NavTab.css';
 function NavTab({ className }) {
   return (
     <nav className={`navtab ${className}`}>
-      <NavTabLink>О проекте</NavTabLink>
-      <NavTabLink>Технологии</NavTabLink>
-      <NavTabLink>Студент</NavTabLink>
+      <NavTabLink to="about">О проекте</NavTabLink>
+      <NavTabLink to="techs">Технологии</NavTabLink>
+      <NavTabLink to="me">Студент</NavTabLink>
     </nav>
   );
 }
