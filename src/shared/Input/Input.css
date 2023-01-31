@@ -16,6 +16,11 @@
   line-height: 16px;
 }
 
+.input__input[type=password]:not(:placeholder-shown) {
+  font-size: 6px;
+  letter-spacing: 0.35em;
+}
+
 .input__label {
   margin-bottom: 10px;
   color: #A0A0A0;
