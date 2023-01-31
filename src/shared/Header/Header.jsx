@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './Header.css';
 import CurrentUser from './CurrentUser/CurrentUser';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Modal from '../Modal/Modal';
 import MyLink from '../MyLink/MyLink';
 import Logo from '../Logo/Logo';
+import './Header.css';
 
 export default function Header({ isLoggedIn = false }) {
   const getWidth = () => window.innerWidth

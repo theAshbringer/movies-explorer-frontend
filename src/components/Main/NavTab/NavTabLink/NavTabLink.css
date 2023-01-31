@@ -11,7 +11,7 @@
   font-size: 12px;
   line-height: 1.33;
   opacity: 1;
-  transition: 0.15s opacity ease-in-out;
+  transition: var(--hover-effect);
 }
 
 .navtab-link:hover {

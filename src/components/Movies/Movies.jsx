@@ -1,10 +1,11 @@
 import React from 'react';
-import './Movies.css';
 import Header from '../../shared/Header/Header';
 import Footer from '../../shared/Footer/Footer';
 import SearchForm from './SearchForm/SearchForm';
 import Divider from '../../shared/Divider/Divider';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Button from '../../shared/Button/Button';
+import './Movies.css';
 
 export default function Movies() {
   return (
@@ -14,7 +15,7 @@ export default function Movies() {
         <SearchForm />
         <Divider />
         <MoviesCardList />
-        <button className="movies-page__more" type="button">Ещё</button>
+        <Button className="movies-page__more" type="button">Ещё</Button>
       </main>
       <Footer />
     </div>

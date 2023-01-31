@@ -1,9 +1,10 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './DeleteButton.css';
 
 function DeleteButton({ className = '', ...otherProps }) {
   return (
-    <button className={`delete-button ${className}`} {...otherProps} type="button" aria-label="Удалить" />
+    <Button className={`delete-button ${className}`} {...otherProps} type="button" aria-label="Удалить" />
   );
 }
 

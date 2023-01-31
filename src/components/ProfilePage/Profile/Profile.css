@@ -43,10 +43,7 @@
 }
 
 .profile__button {
-  cursor: pointer;
   margin-bottom: 16px;
-  border: none;
-  background-color: transparent;
   font-size: 13px;
   line-height: 1.23;
 }

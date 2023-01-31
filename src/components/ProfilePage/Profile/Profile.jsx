@@ -2,6 +2,7 @@
  jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../../shared/Button/Button';
 import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
@@ -33,20 +34,20 @@ export default function Profile() {
         <p className="profile__field-value">pochta@yandex.ru</p>
       </div>
     </div>
-    <button
+    <Button
       className="profile__button profile__button_type_edit"
       onClick={handleEdit}
       type="button"
     >
       Редактировать
-    </button>
-    <button
+    </Button>
+    <Button
       className="profile__button profile__button_type_sign-out"
       onClick={handleSignOut}
       type="button"
     >
       Выйти из аккаунта
-    </button>
+    </Button>
   </>;
 
   const editForm = <form className="profile__edit-form">
@@ -61,20 +62,20 @@ export default function Profile() {
     </Input>
     <Input
       className="profile__input"
-      type="text"
+      type="email"
       name="email"
       id="email"
       placeholder="pochta@yandex.ru"
     >
       E-mail
     </Input>
-    <button
+    <Button
       className="profile__button profile__button_type_save"
       onClick={handleSave}
       type="submit"
     >
       Сохранить
-    </button>
+    </Button>
   </form>;
 
   return (

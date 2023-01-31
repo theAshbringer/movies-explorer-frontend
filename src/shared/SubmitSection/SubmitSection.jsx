@@ -1,7 +1,7 @@
 import React from 'react';
-import './SubmitSection.css';
 import { Link } from 'react-router-dom';
-import WideSubmitButton from '../WideSubmitButton/WideSubmitButton';
+import Button from '../Button/Button';
+import './SubmitSection.css';
 
 function SubmitSection({ isRegistered = false }) {
   const alreadyRegistered = {
@@ -22,7 +22,7 @@ function SubmitSection({ isRegistered = false }) {
 
   return (
     <div className="submit-section">
-      <WideSubmitButton className="submit-section__submit">{content.buttonText}</WideSubmitButton>
+      <Button mode="solidWide" className="submit-section__submit">{content.buttonText}</Button>
       <div className="submit-section__container">
         <p className="submit-section__text">{content.text}</p>
         <Link className="submit-section__link" to={content.link}>{content.linkText}</Link>

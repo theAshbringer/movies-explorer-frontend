@@ -2,13 +2,14 @@ import React from 'react';
 import './Button.css';
 
 export default function Button({
-  mode = 'text',
+  mode = 'blank',
   className = '',
   children,
   ...otherProps
 }) {
   const buttonType = {
-    text: 'button_style_text',
+    blank: '',
+    solidWide: 'button_style_solid-wide',
   };
 
   return (
