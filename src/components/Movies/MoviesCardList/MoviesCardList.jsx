@@ -3,7 +3,7 @@ import { movies } from '../../../utils/const';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList() {
+function MoviesCardList({ type = 'main' }) {
   return (
     <section className="movies">
       <ul className="movies__cards">
@@ -11,7 +11,7 @@ function MoviesCardList() {
           nameRU, image, duration, _id,
         }) => (
           <li key={_id}>
-            <MoviesCard title={nameRU} image={image} duration={duration} />
+            <MoviesCard title={nameRU} image={image} duration={duration} type={type} />
           </li>
         ))}
       </ul>

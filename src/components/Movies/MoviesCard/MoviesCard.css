@@ -11,6 +11,11 @@
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   overflow: hidden;
+  cursor: pointer;
+}
+
+.movie:hover .movie__delete {
+  display: block;
 }
 
 .movie__title {
@@ -37,8 +42,16 @@
   border: none;
   cursor: pointer;
 }
+
 .movie__like {
   margin: 0 24px 0 12px;
+  align-self: end;
+  grid-area: like;
+}
+
+.movie__delete {
+  display: none;
+  margin: 0 24px 2px 23px;
   align-self: end;
   grid-area: like;
 }
@@ -64,7 +77,11 @@
   .movie__title {
     padding: 14px 12px 0 16px;
   }
-  
+
+  .movie__delete {
+    margin: 0 22px 1px 0;
+  }
+
 }
 
 @media screen and (max-width: 650px){
@@ -80,7 +97,11 @@
     font-size: 12px;
     line-height: 1.25;
   }
-  
+
+  .movie__delete {
+    margin: 0 18px 1px 0;
+  }
+
 }
 
 @media screen and (max-width: 400px){
@@ -88,5 +109,4 @@
   .movie {
     grid-template-rows: 168px min-content;
   }
-  
 }
