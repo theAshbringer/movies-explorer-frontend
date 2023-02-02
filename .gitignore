@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+pixel_perfect
 
 # testing
 /coverage
