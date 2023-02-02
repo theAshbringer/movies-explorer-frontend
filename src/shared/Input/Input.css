@@ -1,4 +1,5 @@
 .input {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -40,10 +41,6 @@
   font-size: 10px;
   line-height: 1.2;
 }
-
-/* .input__input:invalid {
-  color: #EE3465;
-} */
 
 .input__error {
   width: 100%;
