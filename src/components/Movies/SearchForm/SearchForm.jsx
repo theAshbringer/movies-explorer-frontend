@@ -13,6 +13,7 @@ function SearchForm({ className = '' }) {
       <form className={`search-form ${className}`}>
         <Magnifier className="search-form__magnifier" fill="#959595" />
         <input className="search-form__input" type="search" placeholder="Фильм" />
+        <span className="search-form__focus-bg" />
         <Button className="search-form__btn" type="submit" aria-label="Поиск" onClick={handleSearch}>
           <Magnifier className="search-form__magnifier" fill="white" />
         </Button>
