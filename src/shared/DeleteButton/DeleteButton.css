@@ -1,0 +1,5 @@
+.delete-button {
+  background: url(../../images/delete-card.svg) transparent center no-repeat;
+  height: 12px;
+  width: 14px;
+}

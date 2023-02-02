@@ -1,0 +1,10 @@
+.my-link {
+  color: inherit;
+  text-decoration: none;
+  opacity: 1;
+  transition: var(--hover-effect);
+}
+
+.my-link:hover {
+  opacity: 0.5;
+}
