@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../../shared/Header/Header';
 import Footer from '../../shared/Footer/Footer';
 import SearchForm from './SearchForm/SearchForm';
@@ -12,7 +12,7 @@ import moviesApi from '../../utils/MoviesApi';
 export default function Movies() {
   const [width, setWidth] = useState(window.innerWidth);
 
-  const initLimit = () => {
+  const initLimit = useCallback(() => {
     let limit = 12;
     let moreNumber = 3;
     if (width > 480 && width <= 768) {
@@ -24,7 +24,7 @@ export default function Movies() {
       moreNumber = 1;
     }
     return { limit, moreNumber };
-  };
+  }, [width]);
 
   const [movies, setMovies] = useState([]);
   const [loadedMovies, setLoadedMovies] = useState([]);
@@ -48,25 +48,19 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    setLoadedMovies(movies.slice(0, limit));
-  }, [limit]);
-
-  useEffect(() => {
     if (movies.length !== 0) {
       setLoadedMovies(movies.slice(0, limit));
     }
-  }, [movies]);
+  }, [movies, limit]);
 
   useEffect(() => {
     setMoreNumber(initLimit().moreNumber);
     if (movies.length === 0) { setLimit(initLimit().limit); }
-  }, [width, movies]);
+  }, [width, movies, initLimit]);
 
   useEffect(() => {
     const resizeListener = () => {
       setWidth(window.innerWidth);
-      setMoreNumber(initLimit().moreNumber);
-      console.log(width);
     };
     window.addEventListener('resize', resizeListener);
     return () => {
