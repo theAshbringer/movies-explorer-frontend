@@ -44,7 +44,7 @@ export default function Movies() {
   };
 
   const handleMore = () => {
-    setLimit((prev) => setLimit(prev + moreNumber));
+    setLimit((limit + moreNumber));
   };
 
   useEffect(() => {
