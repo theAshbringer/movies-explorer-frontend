@@ -33,6 +33,8 @@ export default function Movies() {
   const [moreNumber, setMoreNumber] = useState(initLimit().moreNumber);
   const [isLoading, setIsLoading] = useState(false);
 
+  const isMoreBtnVisible = loadedMovies.length > 3 && loadedMovies.length < movies.length;
+
   const handleSearch = async () => {
     setIsLoading(true);
     try {
@@ -72,7 +74,7 @@ export default function Movies() {
               movies={loadedMovies}
             />
           )}
-        {loadedMovies.length > 3
+        {isMoreBtnVisible
             && (
               <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
             )}
