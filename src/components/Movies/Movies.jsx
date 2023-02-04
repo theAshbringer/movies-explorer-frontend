@@ -59,7 +59,8 @@ export default function Movies() {
 
   useEffect(() => {
     setMoreNumber(initLimit().moreNumber);
-  }, [width]);
+    if (movies.length === 0) { setLimit(initLimit().limit); }
+  }, [width, movies]);
 
   useEffect(() => {
     const resizeListener = () => {
