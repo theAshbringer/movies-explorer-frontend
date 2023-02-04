@@ -1,17 +1,20 @@
 import React from 'react';
-import { movies } from '../../../utils/const';
+import { moviesApiUrl } from '../../../utils/const';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList({ type = 'main' }) {
+function MoviesCardList({
+  movies,
+  type = 'main',
+}) {
   return (
     <section className="movies">
       <ul className="movies__cards">
         {movies.map(({
-          nameRU, image, duration, _id,
+          nameRU, image, duration, id,
         }) => (
-          <li key={_id}>
-            <MoviesCard title={nameRU} image={image} duration={duration} type={type} />
+          <li key={id}>
+            <MoviesCard title={nameRU} image={[moviesApiUrl, image.url].join('')} duration={duration} type={type} />
           </li>
         ))}
       </ul>

@@ -60,3 +60,5 @@ export const validationMsg = {
   required: 'Поле должно быть заполнено',
   email: 'Введите правильный e-mail',
 };
+
+export const moviesApiUrl = 'https://api.nomoreparties.co/';

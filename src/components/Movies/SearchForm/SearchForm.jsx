@@ -4,9 +4,10 @@ import './SearchForm.css';
 import { ReactComponent as Magnifier } from '../../../images/lupa.svg';
 import Button from '../../../shared/Button/Button';
 
-function SearchForm({ className = '' }) {
-  const handleSearch = (e) => {
+function SearchForm({ onSearch, className = '' }) {
+  const handleSearch = async (e) => {
     e.preventDefault();
+    onSearch();
   };
   return (
     <section className="search-form__container">
