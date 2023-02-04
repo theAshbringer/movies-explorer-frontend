@@ -8,9 +8,10 @@ import Button from '../../shared/Button/Button';
 import Preloader from '../../shared/Preloader/Preloader';
 import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
+import useWidth from '../../utils/hooks/useWidth';
 
 export default function Movies() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const width = useWidth();
 
   const initLimit = useCallback(() => {
     let limit = 12;
@@ -57,16 +58,6 @@ export default function Movies() {
     setMoreNumber(initLimit().moreNumber);
     if (movies.length === 0) { setLimit(initLimit().limit); }
   }, [width, movies, initLimit]);
-
-  useEffect(() => {
-    const resizeListener = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', resizeListener);
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    };
-  }, []);
 
   return (
     <div className="movies-page">
