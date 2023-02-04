@@ -35,15 +35,24 @@ export default function Movies() {
 
   const isMoreBtnVisible = loadedMovies.length > 3 && loadedMovies.length < movies.length;
 
-  const handleSearch = async () => {
+  const loadMovies = async () => {
     setIsLoading(true);
     try {
-      setMovies(await moviesApi.getMovies());
+      const moviesData = await moviesApi.getMovies();
+      setMovies(moviesData);
+      localStorage.setItem('movies', JSON.stringify(moviesData));
     } catch (err) {
       console.log(err);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSearch = async () => {
+    if (!localStorage.getItem('movies')) {
+      await loadMovies();
+    }
+    setMovies(JSON.parse(localStorage.getItem('movies')));
   };
 
   const handleMore = () => {
