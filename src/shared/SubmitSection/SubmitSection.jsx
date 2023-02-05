@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import MyLink from '../MyLink/MyLink';
 import './SubmitSection.css';
 
-function SubmitSection({ isRegistered = false }) {
+function SubmitSection({ isButtonDisabled, isRegistered = false }) {
   const alreadyRegistered = {
     text: 'Уже зарегистрированы?',
     link: '/sign-in',
@@ -22,7 +22,7 @@ function SubmitSection({ isRegistered = false }) {
 
   return (
     <div className="submit-section">
-      <Button mode="solidWide" className="submit-section__submit">{content.buttonText}</Button>
+      <Button mode="solidWide" className="submit-section__submit" disabled={isButtonDisabled}>{content.buttonText}</Button>
       <div className="submit-section__container">
         <p className="submit-section__text">{content.text}</p>
         <MyLink className="submit-section__link" to={content.link}>{content.linkText}</MyLink>

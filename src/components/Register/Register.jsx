@@ -30,9 +30,11 @@ export default function Register() {
   const {
     register,
     reset,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const isButtonDisabled = !isDirty || !isValid;
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -92,7 +94,7 @@ export default function Register() {
       >
         Пароль
       </Input>
-      <SubmitSection isRegistered />
+      <SubmitSection isButtonDisabled={isButtonDisabled} isRegistered />
       {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
     </form>
   );

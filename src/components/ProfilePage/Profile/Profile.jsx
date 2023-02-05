@@ -18,9 +18,11 @@ export default function Profile() {
   }).required();
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const isButtonDisabled = !isDirty || !isValid;
 
   const handleEdit = () => {
     setIsEdit(true);
@@ -64,7 +66,7 @@ export default function Profile() {
   );
 
   const editForm = (
-    <form className="profile__edit-form">
+    <form className="profile__edit-form" onSubmit={handleSave}>
       <Input
         className="profile__input"
         type="text"
@@ -90,8 +92,9 @@ export default function Profile() {
         E-mail
       </Input>
       <Button
+        mode="solidWide"
         className="profile__button profile__button_type_save"
-        onClick={handleSubmit(handleSave)}
+        disabled={isButtonDisabled}
         type="submit"
       >
         Сохранить
