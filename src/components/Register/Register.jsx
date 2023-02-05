@@ -29,6 +29,7 @@ export default function Register() {
 
   const {
     register,
+    reset,
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
@@ -36,19 +37,21 @@ export default function Register() {
   const onSubmit = async (data, e) => {
     e.preventDefault();
     try {
-      const res = await mainApi.signUp(data);
+      await mainApi.signUp(data);
       setModalState({ isOpen: true, isSuccess: true, message: 'Вы успешно зарегистрированы' });
+      reset();
     } catch (error) {
       setModalState({ isOpen: true, isSuccess: false, message: error.message });
     }
   };
 
-  const onSuccessRegister = () => {
+  const handleModal = () => {
     if (modalState.isSuccess) {
       navigate('/sign-in');
     }
     setModalState({ ...modalState, isOpen: false });
   };
+
   return (
     <form className="register" onSubmit={handleSubmit(onSubmit)}>
       <Logo className="register__logo" />
@@ -90,7 +93,7 @@ export default function Register() {
         Пароль
       </Input>
       <SubmitSection isRegistered />
-      {modalState.isOpen && <InfoModal message={modalState.message} onClick={onSuccessRegister} />}
+      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
     </form>
   );
 }
