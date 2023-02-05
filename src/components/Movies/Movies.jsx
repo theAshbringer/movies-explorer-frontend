@@ -38,21 +38,25 @@ export default function Movies() {
   const isMoreBtnVisible = loadedMovies.length > 3 && loadedMovies.length < movies.length;
 
   const loadMovies = async () => {
-    setIsLoading(true);
     try {
       const moviesData = await moviesApi.getMovies();
       setMovies(moviesData);
       localStorage.setItem('movies', JSON.stringify(moviesData));
     } catch (err) {
       console.log(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleSearch = async () => {
+    setIsLoading(true);
     if (!localStorage.getItem('movies')) {
       await loadMovies();
+    } else {
+      setMovies(JSON.parse(localStorage.getItem('movies')));
+    }
+    setIsLoading(false);
+  };
+
   const handleLikeClick = async (movie, isLiked) => {
     try {
       if (!isLiked) {
@@ -63,7 +67,7 @@ export default function Movies() {
         const idToDelete = savedMovies.find((m) => m.movieId === movie.movieId)._id;
         await mainApi.dislikeMovie(idToDelete);
         setSavedMovies((state) => state.filter((m) => m.movieId !== movie.movieId));
-    }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -95,8 +99,11 @@ export default function Movies() {
       <main className="movies-page__main">
         <SearchForm onSearch={handleSearch} />
         <Divider />
-        {isLoading && <Preloader />}
-        {loadedMovies.length !== 0
+        {isLoading
+          ? <Preloader />
+          : (
+            <>
+              {loadedMovies.length !== 0
           && (
             <MoviesCardList
               movies={loadedMovies}
@@ -104,10 +111,12 @@ export default function Movies() {
               onLikeMovie={handleLikeClick}
             />
           )}
-        {isMoreBtnVisible
+              {isMoreBtnVisible
             && (
               <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
             )}
+            </>
+          )}
       </main>
       <Footer />
     </div>
