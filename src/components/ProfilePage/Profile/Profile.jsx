@@ -9,7 +9,7 @@ import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 import { validationMsg } from '../../../utils/const';
 
-export default function Profile() {
+export default function Profile({ data: { name, email } }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const schema = yup.object({
@@ -41,11 +41,11 @@ export default function Profile() {
       <div className="profile__data">
         <div className="profile__data-row">
           <p className="profile__field-name">Имя</p>
-          <p className="profile__field-value">Кристина</p>
+          <p className="profile__field-value">{name}</p>
         </div>
         <div className="profile__data-row">
           <p className="profile__field-name">E-mail</p>
-          <p className="profile__field-value">pochta@yandex.ru</p>
+          <p className="profile__field-value">{email}</p>
         </div>
       </div>
       <Button

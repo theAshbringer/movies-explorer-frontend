@@ -86,6 +86,17 @@ class MainApi {
     });
     return handleResponse(res);
   }
+
+  async getProfile() {
+    const res = await fetch(`${this.baseUrl}/users/me`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(res);
+  }
 }
 
 const mainApi = new MainApi();
