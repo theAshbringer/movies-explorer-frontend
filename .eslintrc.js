@@ -24,5 +24,13 @@ module.exports = {
     'import/no-extraneous-dependencies': ['off', { devDependencies: false, optionalDependencies: false, peerDependencies: false }],
     'react/jsx-props-no-spreading': 'warn',
     'no-unused-vars': 'warn',
+    'no-underscore-dangle': [
+      'error',
+      {
+        allow: [
+          '_id',
+        ],
+      },
+    ],
   },
 };

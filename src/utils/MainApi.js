@@ -1,6 +1,6 @@
 const handleResponse = (res) => {
   if (!res.ok) {
-    throw new Error(res.status);
+    throw new Error(res.message);
     // return Promise.reject(res);
   }
   return res.json();
@@ -51,6 +51,40 @@ class MainApi {
       return Promise.reject(new Error('Неверный логин или пароль'));
     }
     return Promise.reject(new Error('Что-то пошло не так'));
+  }
+
+  async likeMovie(movie) {
+    const res = await fetch(`${this.baseUrl}/movies`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movie),
+    });
+    return handleResponse(res);
+  }
+
+  async dislikeMovie(movieId) {
+    const res = await fetch(`${this.baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(res);
+  }
+
+  async getSavedMovies() {
+    const res = await fetch(`${this.baseUrl}/movies`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(res);
   }
 }
 

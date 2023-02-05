@@ -61,6 +61,6 @@ export const validationMsg = {
   email: 'Введите правильный e-mail',
 };
 
-export const moviesApiUrl = 'https://api.nomoreparties.co/';
+export const moviesApiUrl = 'https://api.nomoreparties.co';
 
 export const nameRegExp = /^[A-zА-я\s-]{1,}$/i;

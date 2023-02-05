@@ -9,6 +9,7 @@ import Preloader from '../../shared/Preloader/Preloader';
 import './Movies.css';
 import moviesApi from '../../utils/MoviesApi';
 import useWidth from '../../utils/hooks/useWidth';
+import mainApi from '../../utils/MainApi';
 
 export default function Movies() {
   const width = useWidth();
@@ -28,6 +29,7 @@ export default function Movies() {
   }, [width]);
 
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [loadedMovies, setLoadedMovies] = useState([]);
   const [limit, setLimit] = useState(initLimit().limit);
   const [moreNumber, setMoreNumber] = useState(initLimit().moreNumber);
@@ -51,8 +53,20 @@ export default function Movies() {
   const handleSearch = async () => {
     if (!localStorage.getItem('movies')) {
       await loadMovies();
+  const handleLikeClick = async (movie, isLiked) => {
+    try {
+      if (!isLiked) {
+        const savedMovie = await mainApi.likeMovie(movie);
+        setSavedMovies((state) => [...state, savedMovie]);
+      }
+      if (isLiked) {
+        const idToDelete = savedMovies.find((m) => m.movieId === movie.movieId)._id;
+        await mainApi.dislikeMovie(idToDelete);
+        setSavedMovies((state) => state.filter((m) => m.movieId !== movie.movieId));
     }
-    setMovies(JSON.parse(localStorage.getItem('movies')));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleMore = () => {
@@ -70,6 +84,11 @@ export default function Movies() {
     if (movies.length === 0) { setLimit(initLimit().limit); }
   }, [width, movies, initLimit]);
 
+  useEffect(() => {
+    const getSavedMovies = async () => setSavedMovies(await mainApi.getSavedMovies());
+    getSavedMovies();
+  }, []);
+
   return (
     <div className="movies-page">
       <Header isLoggedIn />
@@ -81,6 +100,8 @@ export default function Movies() {
           && (
             <MoviesCardList
               movies={loadedMovies}
+              savedMovies={savedMovies}
+              onLikeMovie={handleLikeClick}
             />
           )}
         {isMoreBtnVisible
