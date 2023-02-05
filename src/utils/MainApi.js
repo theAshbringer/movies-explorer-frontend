@@ -31,6 +31,27 @@ class MainApi {
     }
     return Promise.reject(new Error('Что-то пошло не так'));
   }
+
+  async signIn(user) {
+    const res = await fetch(`${this.baseUrl}/signin`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    if (res.status === 200) {
+      return handleResponse(res);
+    }
+    if (res.status === 400) {
+      return Promise.reject(new Error('Что-то не так с данными авторизации, пожалуйста, проверьте формат'));
+    }
+    if (res.status === 401) {
+      return Promise.reject(new Error('Неверный логин или пароль'));
+    }
+    return Promise.reject(new Error('Что-то пошло не так'));
+  }
 }
 
 const mainApi = new MainApi();

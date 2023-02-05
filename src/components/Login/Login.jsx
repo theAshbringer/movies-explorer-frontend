@@ -1,26 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../shared/Input/Input';
 import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Login.css';
 import { validationMsg } from '../../utils/const';
+import mainApi from '../../utils/MainApi';
+import InfoModal from '../../shared/Modal/InfoModal/InfoModal';
 
-export default function Login() {
+export default function Login({ onLogin }) {
+  const navigate = useNavigate();
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isSuccess: false,
+    message: '',
+  });
+
   const schema = yup.object({
     email: yup.string().email(validationMsg.email).required(validationMsg.required),
     password: yup.string().required(validationMsg.required),
   }).required();
   const {
     register,
+    reset,
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    if (!(data.email && data.password)) {
+      throw new Error('Введите имя и пароль');
+    }
+    try {
+      await mainApi.signIn(data);
+      onLogin();
+      navigate('/');
+      reset();
+    } catch (error) {
+      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    }
+  };
+
+  const handleModal = () => {
+    setModalState({ ...modalState, isOpen: false });
+  };
+
   return (
-    <main className="login">
+    <form className="login" onSubmit={handleSubmit(onSubmit)}>
       <Logo className="login__logo" />
       <PageTitle className="register__title">Рады видеть!</PageTitle>
       <Input
@@ -50,6 +81,7 @@ export default function Login() {
         Пароль
       </Input>
       <SubmitSection isRegistered={false} onSubmit={handleSubmit()} />
-    </main>
+      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
+    </form>
   );
 }

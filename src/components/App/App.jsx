@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,11 +9,16 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <div>
       <Routes>
         <Route element={<Register />} path="/sign-up" />
-        <Route element={<Login />} path="/sign-in" />
+        <Route element={<Login onLogin={handleLogin} />} path="/sign-in" />
         <Route element={<Movies />} path="/movies" />
         <Route element={<SavedMovies />} path="/saved-movies" />
         <Route element={<ProfilePage />} path="/profile" />
