@@ -18,6 +18,17 @@
   border-radius: 3px;
 }
 
+.button_style_like {
+  background: transparent url(../../images/like.svg) 50% no-repeat;
+  height: 12px;
+  width: 14px;
+}
+
+.button_active {
+  background-image: url("../../images/like_active.svg");
+}
+
+
 @media screen and (max-width: 650px)  {
   .button_style_solid-wide {
     padding: 15px 0;
