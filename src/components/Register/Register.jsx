@@ -1,27 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../shared/Input/Input';
 import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Register.css';
-import { validationMsg } from '../../utils/const';
+import { nameRegExp, validationMsg } from '../../utils/const';
+import mainApi from '../../utils/MainApi';
+import InfoModal from '../../shared/Modal/InfoModal/InfoModal';
 
 export default function Register() {
+  const navigate = useNavigate();
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isSuccess: false,
+    message: '',
+  });
+
   const schema = yup.object({
-    name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное'),
+    name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
+      .matches(nameRegExp, 'Имя может содержать только буквы, дефис и пробел'),
     email: yup.string().email(validationMsg.email).required(validationMsg.required),
     password: yup.string().required(validationMsg.required),
   }).required();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    try {
+      const res = await mainApi.signUp(data);
+      setModalState({ isOpen: true, isSuccess: true, message: 'Вы успешно зарегистрированы' });
+    } catch (error) {
+      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    }
+  };
+
+  const onSuccessRegister = () => {
+    if (modalState.isSuccess) {
+      navigate('/sign-in');
+    }
+    setModalState({ ...modalState, isOpen: false });
+  };
   return (
-    <main className="register">
+    <form className="register" onSubmit={handleSubmit(onSubmit)}>
       <Logo className="register__logo" />
       <PageTitle className="register__title">Добро пожаловать!</PageTitle>
       <Input
@@ -60,7 +89,8 @@ export default function Register() {
       >
         Пароль
       </Input>
-      <SubmitSection isRegistered onSubmit={handleSubmit()} />
-    </main>
+      <SubmitSection isRegistered />
+      {modalState.isOpen && <InfoModal message={modalState.message} onClick={onSuccessRegister} />}
+    </form>
   );
 }

@@ -62,3 +62,5 @@ export const validationMsg = {
 };
 
 export const moviesApiUrl = 'https://api.nomoreparties.co/';
+
+export const nameRegExp = /^[A-zА-я\s-]{1,}$/i;
