@@ -16,9 +16,12 @@ function MoviesCardList({
     <section className="movies">
       <ul className="movies__cards">
         {movies.map((movie) => {
+          console.log(movie);
           const isSaved = type === 'main' ? savedMoviesId.includes(movie.id) : '';
           const imageLink = type === 'main' ? [moviesApiUrl, movie.image.url].join('') : movie.image;
-          const id = type === 'main' ? movie.id : movie.movieId;
+          const id = type === 'main' ? movie.id : movie._id;
+          // console.log(id);
+          // console.log(movie._id ?? movie.id);
           return (
             <li key={id}>
               <MoviesCard
