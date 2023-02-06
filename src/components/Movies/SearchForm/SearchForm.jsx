@@ -12,7 +12,7 @@ function SearchForm({ onSearch, className = '' }) {
   const handleSearch = async (e) => {
     e.preventDefault();
     localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
-    await onSearch();
+    await onSearch({ query, isShortMovie });
   };
   return (
     <section className="search-form__container">

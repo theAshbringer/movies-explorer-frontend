@@ -7,12 +7,16 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Button from '../../shared/Button/Button';
 import Preloader from '../../shared/Preloader/Preloader';
 import './Movies.css';
-import moviesApi from '../../utils/MoviesApi';
 import useWidth from '../../utils/hooks/useWidth';
 import mainApi from '../../utils/MainApi';
+import filterByQuery from '../../utils/filterByQuery';
+import useMovies from '../../utils/hooks/useMovies';
+import useSavedMovies from '../../utils/hooks/useSavedMovies';
 
 export default function Movies() {
   const width = useWidth();
+  const movies = useMovies();
+  const [savedMovies, setSavedMovies] = useSavedMovies();
 
   const initLimit = useCallback(() => {
     let limit = 12;
@@ -28,32 +32,19 @@ export default function Movies() {
     return { limit, moreNumber };
   }, [width]);
 
-  const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [loadedMovies, setLoadedMovies] = useState([]);
+  const initMovies = JSON.parse(localStorage.getItem('searchedMovies')) || [];
+  const [filteredMovies, setFilteredMovies] = useState(initMovies);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [limit, setLimit] = useState(initLimit().limit);
   const [moreNumber, setMoreNumber] = useState(initLimit().moreNumber);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isMoreBtnVisible = loadedMovies.length > 3 && loadedMovies.length < movies.length;
+  const isMoreBtnVisible = displayedMovies.length > 3
+  && displayedMovies.length < filteredMovies.length;
 
-  const loadMovies = async () => {
-    try {
-      const moviesData = await moviesApi.getMovies();
-      setMovies(moviesData);
-      localStorage.setItem('movies', JSON.stringify(moviesData));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleSearch = async () => {
+  const handleSearch = async (queryParams) => {
     setIsLoading(true);
-    if (!localStorage.getItem('movies')) {
-      await loadMovies();
-    } else {
-      setMovies(JSON.parse(localStorage.getItem('movies')));
-    }
+    setFilteredMovies(filterByQuery(movies, queryParams));
     setIsLoading(false);
   };
 
@@ -78,20 +69,19 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    if (movies.length !== 0) {
-      setLoadedMovies(movies.slice(0, limit));
+    localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));
+  }, [filteredMovies]);
+
+  useEffect(() => {
+    if (filteredMovies.length !== 0) {
+      setDisplayedMovies(filteredMovies.slice(0, limit));
     }
-  }, [movies, limit]);
+  }, [filteredMovies, limit]);
 
   useEffect(() => {
     setMoreNumber(initLimit().moreNumber);
-    if (movies.length === 0) { setLimit(initLimit().limit); }
-  }, [width, movies, initLimit]);
-
-  useEffect(() => {
-    const getSavedMovies = async () => setSavedMovies(await mainApi.getSavedMovies());
-    getSavedMovies();
-  }, []);
+    if (filteredMovies.length === 0) { setLimit(initLimit().limit); }
+  }, [width, filteredMovies, initLimit]);
 
   return (
     <div className="movies-page">
@@ -103,10 +93,10 @@ export default function Movies() {
           ? <Preloader />
           : (
             <>
-              {loadedMovies.length !== 0
+              {displayedMovies.length !== 0
           && (
             <MoviesCardList
-              movies={loadedMovies}
+              movies={displayedMovies}
               savedMovies={savedMovies}
               onLikeMovie={handleLikeClick}
             />
