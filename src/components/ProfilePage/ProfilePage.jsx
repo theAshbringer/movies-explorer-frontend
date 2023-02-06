@@ -9,6 +9,16 @@ export default function ProfilePage() {
     name: '',
     email: '',
   });
+
+  const handleEditProfile = async (newData) => {
+    try {
+      const updated = await mainApi.updateProfile(newData);
+      setProfile(updated);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getProfile = async () => {
       setProfile(await mainApi.getProfile());
@@ -18,12 +28,13 @@ export default function ProfilePage() {
     } catch (error) {
       console.error(error);
     }
-  });
+  }, []);
+
   return (
     <div className="profile-page">
       <Header isLoggedIn />
       <main className="profile-page__main">
-        <Profile data={profile} />
+        <Profile data={profile} onSave={handleEditProfile} />
       </main>
     </div>
   );

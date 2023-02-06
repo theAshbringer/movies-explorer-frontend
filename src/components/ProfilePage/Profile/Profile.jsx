@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,7 +9,7 @@ import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 import { validationMsg } from '../../../utils/const';
 
-export default function Profile({ data: { name, email } }) {
+export default function Profile({ data: { name, email }, onSave }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const schema = yup.object({
@@ -18,6 +18,7 @@ export default function Profile({ data: { name, email } }) {
   }).required();
   const {
     register,
+    reset,
     formState: { errors, isValid, isDirty },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
@@ -32,9 +33,15 @@ export default function Profile({ data: { name, email } }) {
     navigate('/');
   };
 
-  const handleSave = () => {
+  const handleSave = (newData) => {
     setIsEdit(false);
+    onSave(newData);
   };
+
+  useEffect(() => {
+    const defaultValues = { name, email };
+    reset({ ...defaultValues });
+  }, [name, email]);
 
   const profileData = (
     <>
@@ -66,7 +73,7 @@ export default function Profile({ data: { name, email } }) {
   );
 
   const editForm = (
-    <form className="profile__edit-form" onSubmit={handleSave}>
+    <form className="profile__edit-form" onSubmit={handleSubmit(handleSave)}>
       <Input
         className="profile__input"
         type="text"
@@ -104,7 +111,7 @@ export default function Profile({ data: { name, email } }) {
 
   return (
     <section className="profile">
-      <PageTitle className="profile__title">Привет, пользователь!</PageTitle>
+      <PageTitle className="profile__title">{`Привет, ${name}!`}</PageTitle>
       {!isEdit
         ? profileData
         : editForm}

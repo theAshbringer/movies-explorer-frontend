@@ -97,6 +97,18 @@ class MainApi {
     });
     return handleResponse(res);
   }
+
+  async updateProfile(profile) {
+    const res = await fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profile),
+    });
+    return handleResponse(res);
+  }
 }
 
 const mainApi = new MainApi();
