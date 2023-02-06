@@ -73,9 +73,7 @@ export default function Movies() {
   }, [filteredMovies]);
 
   useEffect(() => {
-    if (filteredMovies.length !== 0) {
       setDisplayedMovies(filteredMovies.slice(0, limit));
-    }
   }, [filteredMovies, limit]);
 
   useEffect(() => {
