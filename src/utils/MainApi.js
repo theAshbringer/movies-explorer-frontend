@@ -1,3 +1,5 @@
+import { moviesApiUrl } from './const';
+
 const handleResponse = (res) => {
   if (!res.ok) {
     throw new Error(res.message);
@@ -53,19 +55,34 @@ class MainApi {
     return Promise.reject(new Error('Что-то пошло не так'));
   }
 
-  async likeMovie(movie) {
+  async likeMovie({
+    country, director, duration, year, description,
+    image, trailerLink, nameRU, nameEN, id,
+  }) {
     const res = await fetch(`${this.baseUrl}/movies`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(movie),
+      body: JSON.stringify({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: [moviesApiUrl, image.url].join(''),
+        trailerLink,
+        nameRU,
+        nameEN,
+        movieId: id,
+        thumbnail: [moviesApiUrl, image.url].join(''),
+      }),
     });
     return handleResponse(res);
   }
 
-  async dislikeMovie(movieId) {
+  async deleteMovie(movieId) {
     const res = await fetch(`${this.baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',

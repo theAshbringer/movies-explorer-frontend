@@ -6,41 +6,27 @@ import './MoviesCardList.css';
 
 function MoviesCardList({
   movies,
-  savedMovies,
+  savedMovies = [],
   type = 'main',
-  onLikeMovie,
+  onButtonClick,
 }) {
   const savedMoviesId = savedMovies.map((m) => m.movieId);
 
   return (
     <section className="movies">
       <ul className="movies__cards">
-        {movies.map(({
-          country, director, duration, year, description,
-          image, trailerLink, nameRU, nameEN, id,
-        }) => {
-          const movie = {
-            country,
-            director,
-            duration,
-            year,
-            description,
-            image: [moviesApiUrl, image.url].join(''),
-            trailerLink,
-            nameRU,
-            nameEN,
-            movieId: id,
-            thumbnail: [moviesApiUrl, image.url].join(''),
-          };
-          const isSaved = savedMoviesId.includes(id);
+        {movies.map((movie) => {
+          const isSaved = type === 'main' ? savedMoviesId.includes(movie.id) : '';
+          const imageLink = type === 'main' ? [moviesApiUrl, movie.image.url].join('') : movie.image;
+          const id = type === 'main' ? movie.id : movie.movieId;
           return (
-            <li key={movie.movieId}>
+            <li key={id}>
               <MoviesCard
                 title={movie.nameRU}
-                image={movie.image}
+                image={imageLink}
                 duration={getDurationFromMinutes(movie.duration)}
                 type={type}
-                onLike={() => onLikeMovie(movie, isSaved)}
+                onButtonClick={() => onButtonClick(movie, isSaved)}
                 isSaved={isSaved}
               />
             </li>

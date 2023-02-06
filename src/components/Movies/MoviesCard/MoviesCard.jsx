@@ -7,7 +7,7 @@ function MoviesCard({
   title,
   image,
   duration,
-  onLike,
+  onButtonClick,
   isSaved = false,
   type = 'like',
 
@@ -21,13 +21,18 @@ function MoviesCard({
           <Button
             mode="like"
             className="movie__like"
-            onClick={() => onLike()}
+            onClick={() => onButtonClick()}
             isActive={isSaved}
             aria-label="Поставить лайк"
             type="button"
           />
         )
-        : <DeleteButton className="movie__delete" />}
+        : (
+          <DeleteButton
+            onClick={() => onButtonClick()}
+            className="movie__delete"
+          />
+        )}
       <p className="movie__duration">{duration}</p>
     </article>
   );

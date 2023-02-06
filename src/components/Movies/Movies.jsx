@@ -55,9 +55,9 @@ export default function Movies() {
         setSavedMovies((state) => [...state, savedMovie]);
       }
       if (isLiked) {
-        const idToDelete = savedMovies.find((m) => m.movieId === movie.movieId)._id;
-        await mainApi.dislikeMovie(idToDelete);
-        setSavedMovies((state) => state.filter((m) => m.movieId !== movie.movieId));
+        const idToDelete = savedMovies.find((m) => m.movieId === movie.id)._id;
+        await mainApi.deleteMovie(idToDelete);
+        setSavedMovies((state) => state.filter((m) => m.movieId !== movie.id));
       }
     } catch (error) {
       console.error(error);
@@ -73,7 +73,7 @@ export default function Movies() {
   }, [filteredMovies]);
 
   useEffect(() => {
-      setDisplayedMovies(filteredMovies.slice(0, limit));
+    setDisplayedMovies(filteredMovies.slice(0, limit));
   }, [filteredMovies, limit]);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function Movies() {
             <MoviesCardList
               movies={displayedMovies}
               savedMovies={savedMovies}
-              onLikeMovie={handleLikeClick}
+              onButtonClick={handleLikeClick}
             />
           )}
               {isMoreBtnVisible
