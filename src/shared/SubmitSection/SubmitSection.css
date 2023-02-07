@@ -1,4 +1,5 @@
 .submit-section {
+  position: relative;
   margin-top: auto;
   width: 100%;
 }
@@ -21,6 +22,11 @@
 
 .submit-section__submit {
   margin: 0 0 16px;
+}
+
+.submit-section__error {
+  text-align: center;
+  font-size: 1em;
 }
 
 @media screen and (max-width: 650px)  {
