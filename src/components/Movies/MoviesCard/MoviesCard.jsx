@@ -1,7 +1,7 @@
 import React from 'react';
-import './MoviesCard.css';
 import DeleteButton from '../../../shared/DeleteButton/DeleteButton';
 import Button from '../../../shared/Button/Button';
+import './MoviesCard.css';
 
 function MoviesCard({
   title,
