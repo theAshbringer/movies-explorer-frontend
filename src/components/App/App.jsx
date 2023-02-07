@@ -57,7 +57,7 @@ function App() {
     <div className="app">
       <CurrentUserContext.Provider value={authData}>
         <Routes>
-          <Route element={<Register />} path="/sign-up" />
+          <Route element={<Register onLogin={handleLogin} />} path="/sign-up" />
           <Route element={<Login onLogin={handleLogin} />} path="/sign-in" />
           <Route
             element={(

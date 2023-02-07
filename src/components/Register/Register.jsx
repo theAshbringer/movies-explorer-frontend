@@ -10,15 +10,10 @@ import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Register.css';
 import { nameRegExp, validationMsg } from '../../utils/const';
 import mainApi from '../../utils/MainApi';
-import InfoModal from '../../shared/Modal/InfoModal/InfoModal';
 
-export default function Register() {
+export default function Register({ onLogin }) {
   const navigate = useNavigate();
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    isSuccess: false,
-    message: '',
-  });
+  const [error, setError] = useState('');
 
   const schema = yup.object({
     name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
@@ -40,18 +35,20 @@ export default function Register() {
     e.preventDefault();
     try {
       await mainApi.signUp(data);
-      setModalState({ isOpen: true, isSuccess: true, message: 'Вы успешно зарегистрированы' });
+      try {
+        const { data: currentUser } = await mainApi.signIn({
+          email: data.email,
+          password: data.password,
+        });
+        onLogin(currentUser);
+        navigate('/movies');
+      } catch {
+        navigate('/sign-in');
+      }
       reset();
-    } catch (error) {
-      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    } catch (err) {
+      setError(err.message);
     }
-  };
-
-  const handleModal = () => {
-    if (modalState.isSuccess) {
-      navigate('/sign-in');
-    }
-    setModalState({ ...modalState, isOpen: false });
   };
 
   return (
@@ -94,8 +91,7 @@ export default function Register() {
       >
         Пароль
       </Input>
-      <SubmitSection isButtonDisabled={isButtonDisabled} isRegistered />
-      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
+      <SubmitSection error={error} isButtonDisabled={isButtonDisabled} isRegistered />
     </form>
   );
 }
