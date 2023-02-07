@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ToggleSlider from '../../../shared/ToggleSlider/ToggleSlider';
-import './SearchForm.css';
 import { ReactComponent as Magnifier } from '../../../images/lupa.svg';
 import Button from '../../../shared/Button/Button';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import './SearchForm.css';
 
-function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
-  const initialParams = initialQueryParams || { query: '', isShortMovie: false };
-  const [query, setQuery] = useState(initialParams.query);
-  const [isShortMovie, setIsShortMovie] = useState(initialParams.isShortMovie);
+function SearchForm({
+  query,
+  setQuery,
+  isShortMovie,
+  onSearch,
+  setIsShortMovie,
+  className = '',
+}) {
   const [error, setError] = useState('');
   const [isDirty, setIsDirty] = useState(false);
 
@@ -21,9 +24,6 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
     setQuery(target.value);
     setIsDirty(true);
     setError('');
-    if (target.value === '') {
-      setErrorMessage();
-    }
   };
   const isButtonDisabled = query === '' && isDirty;
 
@@ -39,12 +39,6 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
     e.preventDefault();
     doSearch();
   };
-
-  useEffect(() => {
-    if (query) {
-      doSearch();
-    }
-  }, [isShortMovie]);
 
   return (
     <section className="search-form__container">
@@ -73,7 +67,7 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
         <ToggleSlider
           value={isShortMovie}
           className="search-form__slider"
-          defaultChecked={initialParams.isShortMovie}
+          defaultChecked={isShortMovie}
           onChange={() => setIsShortMovie(!isShortMovie)}
         >
           Короткометражки

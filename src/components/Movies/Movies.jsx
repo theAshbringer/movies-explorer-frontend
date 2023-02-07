@@ -32,7 +32,7 @@ export default function Movies() {
     return { limit, moreNumber };
   }, [width]);
 
-  const initialSearchQuery = JSON.parse(localStorage.getItem('queryParams'));
+  const initialSearchQuery = JSON.parse(localStorage.getItem('queryParams')) || { query: '', isShortMovie: false };
 
   const initMovies = JSON.parse(localStorage.getItem('searchedMovies')) || [];
   const [filteredMovies, setFilteredMovies] = useState(initMovies);
@@ -40,15 +40,20 @@ export default function Movies() {
   const [limit, setLimit] = useState(initLimit().limit);
   const [moreNumber, setMoreNumber] = useState(initLimit().moreNumber);
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState(initialSearchQuery.query);
+  const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
+  const hasNoResults = displayedMovies.length === 0 && query !== '';
 
-  const handleSearch = async (queryParams) => {
-    localStorage.setItem('queryParams', JSON.stringify(queryParams));
+  const handleSearch = async () => {
     setIsLoading(true);
-    setFilteredMovies(filterByQuery(movies, queryParams));
+    const filteredResult = filterByQuery(movies, { query, isShortMovie });
+    setFilteredMovies(filteredResult);
     setIsLoading(false);
+    localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
+    localStorage.setItem('searchedMovies', JSON.stringify(filteredResult));
   };
 
   const handleLikeClick = async (movie, isLiked) => {
@@ -72,8 +77,10 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));
-  }, [filteredMovies]);
+    if (displayedMovies.length !== 0) {
+      handleSearch();
+    }
+  }, [isShortMovie]);
 
   useEffect(() => {
     setDisplayedMovies(filteredMovies.slice(0, limit));
@@ -84,30 +91,38 @@ export default function Movies() {
     if (filteredMovies.length === 0) { setLimit(initLimit().limit); }
   }, [width, filteredMovies, initLimit]);
 
+  const resultSection = (
+    <>
+      {displayedMovies.length !== 0 && (
+      <MoviesCardList
+        movies={displayedMovies}
+        savedMovies={savedMovies}
+        onButtonClick={handleLikeClick}
+      />
+      )}
+      {hasNoResults && <p>Ничего не найдено</p>}
+      {isMoreBtnVisible
+        && (
+          <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
+        )}
+    </>
+  );
+
   return (
     <div className="movies-page">
       <Header isLoggedIn />
       <main className="movies-page__main">
-        <SearchForm initialQueryParams={initialSearchQuery} onSearch={handleSearch} />
+        <SearchForm
+          query={query}
+          setQuery={setQuery}
+          isShortMovie={isShortMovie}
+          setIsShortMovie={setIsShortMovie}
+          onSearch={handleSearch}
+        />
         <Divider />
         {isLoading
           ? <Preloader />
-          : (
-            <>
-              {displayedMovies.length !== 0
-                && (
-                  <MoviesCardList
-                    movies={displayedMovies}
-                    savedMovies={savedMovies}
-                    onButtonClick={handleLikeClick}
-                  />
-                )}
-              {isMoreBtnVisible
-                && (
-                  <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
-                )}
-            </>
-          )}
+          : resultSection}
       </main>
       <Footer />
     </div>
