@@ -10,15 +10,10 @@ import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Login.css';
 import { validationMsg } from '../../utils/const';
 import mainApi from '../../utils/MainApi';
-import InfoModal from '../../shared/Modal/InfoModal/InfoModal';
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    isSuccess: false,
-    message: '',
-  });
+  const [error, setError] = useState('');
 
   const schema = yup.object({
     email: yup.string().email(validationMsg.email).required(validationMsg.required),
@@ -39,17 +34,13 @@ export default function Login({ onLogin }) {
       if (!(data.email && data.password)) {
         throw new Error('Введите имя и пароль');
       }
-      const { data: { name, email } } = await mainApi.signIn(data);
-      onLogin({ name, email });
+      const { data: currentUser } = await mainApi.signIn(data);
+      onLogin(currentUser);
       navigate('/movies');
       reset();
-    } catch (error) {
-      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    } catch (err) {
+      setError(err.message);
     }
-  };
-
-  const handleModal = () => {
-    setModalState({ ...modalState, isOpen: false });
   };
 
   return (
@@ -82,8 +73,7 @@ export default function Login({ onLogin }) {
       >
         Пароль
       </Input>
-      <SubmitSection isRegistered={false} isButtonDisabled={isButtonDisabled} />
-      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
+      <SubmitSection error={error} isRegistered={false} isButtonDisabled={isButtonDisabled} />
     </form>
   );
 }
