@@ -18,9 +18,8 @@ function MoviesCardList({
         {movies.map((movie) => {
           const isSaved = type === 'main' ? savedMoviesId.includes(movie.id) : '';
           const imageLink = type === 'main' ? [moviesApiUrl, movie.image.url].join('') : movie.image;
-          const id = type === 'main' ? movie.id : movie.movieId;
           return (
-            <li key={id}>
+            <li key={movie._id ?? movie.id}>
               <MoviesCard
                 title={movie.nameRU}
                 image={imageLink}
