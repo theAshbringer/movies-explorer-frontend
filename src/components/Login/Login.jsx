@@ -41,7 +41,7 @@ export default function Login({ onLogin }) {
       }
       const { data: { name, email } } = await mainApi.signIn(data);
       onLogin({ name, email });
-      navigate('/');
+      navigate('/movies');
       reset();
     } catch (error) {
       setModalState({ isOpen: true, isSuccess: false, message: error.message });
