@@ -32,6 +32,8 @@ export default function Movies() {
     return { limit, moreNumber };
   }, [width]);
 
+  const initialSearchQuery = JSON.parse(localStorage.getItem('queryParams'));
+
   const initMovies = JSON.parse(localStorage.getItem('searchedMovies')) || [];
   const [filteredMovies, setFilteredMovies] = useState(initMovies);
   const [displayedMovies, setDisplayedMovies] = useState([]);
@@ -40,9 +42,10 @@ export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
 
   const isMoreBtnVisible = displayedMovies.length > 3
-  && displayedMovies.length < filteredMovies.length;
+    && displayedMovies.length < filteredMovies.length;
 
   const handleSearch = async (queryParams) => {
+    localStorage.setItem('queryParams', JSON.stringify(queryParams));
     setIsLoading(true);
     setFilteredMovies(filterByQuery(movies, queryParams));
     setIsLoading(false);
@@ -85,24 +88,24 @@ export default function Movies() {
     <div className="movies-page">
       <Header isLoggedIn />
       <main className="movies-page__main">
-        <SearchForm onSearch={handleSearch} />
+        <SearchForm initialQueryParams={initialSearchQuery} onSearch={handleSearch} />
         <Divider />
         {isLoading
           ? <Preloader />
           : (
             <>
               {displayedMovies.length !== 0
-          && (
-            <MoviesCardList
-              movies={displayedMovies}
-              savedMovies={savedMovies}
-              onButtonClick={handleLikeClick}
-            />
-          )}
+                && (
+                  <MoviesCardList
+                    movies={displayedMovies}
+                    savedMovies={savedMovies}
+                    onButtonClick={handleLikeClick}
+                  />
+                )}
               {isMoreBtnVisible
-            && (
-              <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
-            )}
+                && (
+                  <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
+                )}
             </>
           )}
       </main>

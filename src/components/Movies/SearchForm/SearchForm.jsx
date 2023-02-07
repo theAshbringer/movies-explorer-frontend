@@ -4,14 +4,13 @@ import './SearchForm.css';
 import { ReactComponent as Magnifier } from '../../../images/lupa.svg';
 import Button from '../../../shared/Button/Button';
 
-function SearchForm({ onSearch, className = '' }) {
-  const initialParams = JSON.parse(localStorage.getItem('queryParams')) || { query: '', isShortMovie: false };
+function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
+  const initialParams = initialQueryParams || { query: '', isShortMovie: false };
   const [query, setQuery] = useState(initialParams.query);
   const [isShortMovie, setIsShortMovie] = useState(initialParams.isShortMovie);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
     await onSearch({ query, isShortMovie });
   };
   return (

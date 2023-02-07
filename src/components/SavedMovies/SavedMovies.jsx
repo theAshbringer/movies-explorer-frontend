@@ -12,12 +12,11 @@ import filterByQuery from '../../utils/filterByQuery';
 export default function SavedMovies() {
   const [savedMovies, setSavedMovies] = useSavedMovies();
   const [isLoading, setIsLoading] = useState(false);
-  const [filteredMovies, setFilteredMovies] = useState([savedMovies]);
+  const [filteredMovies, setFilteredMovies] = useState(savedMovies);
 
   const handleSearch = async (queryParams) => {
     setIsLoading(true);
     setFilteredMovies(filterByQuery(savedMovies, queryParams));
-    console.log(filteredMovies);
     setIsLoading(false);
   };
 
