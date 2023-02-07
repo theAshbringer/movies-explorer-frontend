@@ -8,7 +8,7 @@ import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 import { validationMsg } from '../../../utils/const';
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
 export default function Profile({ data: { name, email }, onSave, onLogout }) {
   const { setIsLoggedIn } = useContext(CurrentUserContext);
@@ -37,9 +37,9 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
     navigate('/');
   };
 
-  const handleSave = (newData) => {
+  const handleSave = async (newData) => {
+    await onSave(newData);
     setIsEdit(false);
-    onSave(newData);
   };
 
   useEffect(() => {

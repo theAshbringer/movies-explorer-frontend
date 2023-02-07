@@ -8,28 +8,52 @@ import Login from '../Login/Login';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import CurrentUserContext from '../contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import Preloader from '../../shared/Preloader/Preloader';
+import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const authData = useMemo(() => ({ isLoggedIn, setIsLoggedIn }));
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
+  const authData = useMemo(() => ({
+    currentUser,
+    isLoggedIn,
+    setIsLoggedIn,
+  }));
+
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
+  const handleEditProfile = (newProfile) => {
+    setCurrentUser(newProfile);
+  };
+
   useEffect(() => {
+    setIsAuthenticating(true);
     mainApi.getProfile()
-      .then(() => {
+      .then((data) => {
+        setCurrentUser(data);
         setIsLoggedIn(true);
       })
       .catch((err) => {
         setIsLoggedIn(false);
-      });
+      })
+      .finally(() => setIsAuthenticating(false));
   }, []);
 
+  if (isAuthenticating === true) {
+    return (
+      <div className="app">
+        <Preloader />
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="app">
       <CurrentUserContext.Provider value={authData}>
         <Routes>
           <Route element={<Register />} path="/sign-up" />
@@ -53,7 +77,7 @@ function App() {
           <Route
             element={(
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <ProfilePage />
+                <ProfilePage onEditProfile={handleEditProfile} />
               </ProtectedRoute>
             )}
             path="/profile"

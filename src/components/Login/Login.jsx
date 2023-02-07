@@ -35,10 +35,10 @@ export default function Login({ onLogin }) {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    if (!(data.email && data.password)) {
-      throw new Error('Введите имя и пароль');
-    }
     try {
+      if (!(data.email && data.password)) {
+        throw new Error('Введите имя и пароль');
+      }
       await mainApi.signIn(data);
       onLogin();
       navigate('/');

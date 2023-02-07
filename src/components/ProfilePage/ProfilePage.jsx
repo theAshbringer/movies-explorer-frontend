@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './ProfilePage.css';
 import Header from '../../shared/Header/Header';
 import Profile from './Profile/Profile';
 import mainApi from '../../utils/MainApi';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-export default function ProfilePage() {
+export default function ProfilePage({ onEditProfile }) {
+  const { currentUser } = useContext(CurrentUserContext);
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -12,10 +14,11 @@ export default function ProfilePage() {
 
   const handleEditProfile = async (newData) => {
     try {
-      const updated = await mainApi.updateProfile(newData);
-      setProfile(updated);
+      const updatedProfile = await mainApi.updateProfile(newData);
+      setProfile(updatedProfile);
+      onEditProfile(updatedProfile);
     } catch (error) {
-      console.error(error);
+      console.error('Не удалось обновить данные профиля. Попробуйте позже');
     }
   };
 
@@ -28,14 +31,7 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    const getProfile = async () => {
-      setProfile(await mainApi.getProfile());
-    };
-    try {
-      getProfile();
-    } catch (error) {
-      console.error(error);
-    }
+    setProfile(currentUser);
   }, []);
 
   return (

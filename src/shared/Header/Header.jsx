@@ -5,7 +5,7 @@ import Modal from '../Modal/Modal';
 import MyLink from '../MyLink/MyLink';
 import Logo from '../Logo/Logo';
 import './Header.css';
-import CurrentUserContext from '../../components/contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 export default function Header() {
   const { isLoggedIn } = useContext(CurrentUserContext);
