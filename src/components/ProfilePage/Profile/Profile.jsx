@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,8 +8,10 @@ import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 import { validationMsg } from '../../../utils/const';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-export default function Profile({ data: { name, email }, onSave }) {
+export default function Profile({ data: { name, email }, onSave, onLogout }) {
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const schema = yup.object({
@@ -29,7 +31,9 @@ export default function Profile({ data: { name, email }, onSave }) {
     setIsEdit(true);
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await onLogout();
+    setIsLoggedIn(false);
     navigate('/');
   };
 

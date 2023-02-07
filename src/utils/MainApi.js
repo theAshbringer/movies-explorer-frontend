@@ -126,6 +126,17 @@ class MainApi {
     });
     return handleResponse(res);
   }
+
+  async signOut() {
+    const res = await fetch(`${this.baseUrl}/signout`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(res);
+  }
 }
 
 const mainApi = new MainApi();

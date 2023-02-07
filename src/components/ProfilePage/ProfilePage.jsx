@@ -19,6 +19,14 @@ export default function ProfilePage() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await mainApi.signOut();
+    } catch (error) {
+      console.error('Не удалось осуществить запрос. Попробуйте позже');
+    }
+  };
+
   useEffect(() => {
     const getProfile = async () => {
       setProfile(await mainApi.getProfile());
@@ -34,7 +42,7 @@ export default function ProfilePage() {
     <div className="profile-page">
       <Header isLoggedIn />
       <main className="profile-page__main">
-        <Profile data={profile} onSave={handleEditProfile} />
+        <Profile data={profile} onSave={handleEditProfile} onLogout={handleLogout} />
       </main>
     </div>
   );
