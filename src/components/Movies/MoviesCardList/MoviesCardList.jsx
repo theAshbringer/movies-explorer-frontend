@@ -1,4 +1,5 @@
 import React from 'react';
+import MyLink from '../../../shared/MyLink/MyLink';
 import { moviesApiUrl } from '../../../utils/const';
 import { getDurationFromMinutes } from '../../../utils/getDurationfromMinutes';
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -20,14 +21,19 @@ function MoviesCardList({
           const imageLink = type === 'main' ? [moviesApiUrl, movie.image.url].join('') : movie.image;
           return (
             <li key={movie._id ?? movie.id}>
-              <MoviesCard
-                title={movie.nameRU}
-                image={imageLink}
-                duration={getDurationFromMinutes(movie.duration)}
-                type={type}
-                onButtonClick={() => onButtonClick(movie, isSaved)}
-                isSaved={isSaved}
-              />
+              <MyLink
+                type="anchor"
+                href={movie.trailerLink}
+              >
+                <MoviesCard
+                  title={movie.nameRU}
+                  image={imageLink}
+                  duration={getDurationFromMinutes(movie.duration)}
+                  type={type}
+                  onButtonClick={() => onButtonClick(movie, isSaved)}
+                  isSaved={isSaved}
+                />
+              </MyLink>
             </li>
           );
         })}

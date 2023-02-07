@@ -21,7 +21,10 @@ function MoviesCard({
           <Button
             mode="like"
             className="movie__like"
-            onClick={() => onButtonClick()}
+            onClick={(e) => {
+              e.preventDefault();
+              onButtonClick();
+            }}
             isActive={isSaved}
             aria-label="Поставить лайк"
             type="button"
