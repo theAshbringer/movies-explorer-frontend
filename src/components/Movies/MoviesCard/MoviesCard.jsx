@@ -10,8 +10,12 @@ function MoviesCard({
   onButtonClick,
   isSaved = false,
   type = 'like',
-
 }) {
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    onButtonClick();
+  };
+
   return (
     <article className="movie">
       <h2 className="movie__title">{title}</h2>
@@ -21,10 +25,7 @@ function MoviesCard({
           <Button
             mode="like"
             className="movie__like"
-            onClick={(e) => {
-              e.preventDefault();
-              onButtonClick();
-            }}
+            onClick={handleButtonClick}
             isActive={isSaved}
             aria-label="Поставить лайк"
             type="button"
@@ -32,7 +33,7 @@ function MoviesCard({
         )
         : (
           <DeleteButton
-            onClick={() => onButtonClick()}
+            onClick={handleButtonClick}
             className="movie__delete"
           />
         )}
