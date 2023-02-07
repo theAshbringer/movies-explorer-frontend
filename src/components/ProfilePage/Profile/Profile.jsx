@@ -14,10 +14,12 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
   const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
+
   const schema = yup.object({
     email: yup.string().email(validationMsg.email),
     name: yup.string(),
   }).required();
+
   const {
     register,
     reset,
@@ -109,6 +111,13 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
         type="submit"
       >
         Сохранить
+      </Button>
+      <Button
+        className="profile__button profile__button_type_cancel"
+        onClick={() => setIsEdit(false)}
+        type="button"
+      >
+        Отменить
       </Button>
     </form>
   );
