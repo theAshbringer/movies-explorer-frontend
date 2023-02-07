@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,6 +9,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +17,16 @@ function App() {
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
+
+  useEffect(() => {
+    mainApi.getProfile()
+      .then(() => {
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        setIsLoggedIn(false);
+      });
+  }, []);
 
   return (
     <div>
