@@ -3,7 +3,6 @@ import { moviesApiUrl } from './const';
 const handleResponse = (res) => {
   if (!res.ok) {
     throw new Error(res.message);
-    // return Promise.reject(res);
   }
   return res.json();
 };
@@ -26,12 +25,12 @@ class MainApi {
       return handleResponse(res);
     }
     if (res.status === 400) {
-      return Promise.reject(new Error('Ошибка валидации'));
+      throw new Error('Что-то не так с введенными данными...');
     }
     if (res.status === 409) {
-      return Promise.reject(new Error('Пользователь уже зарегистрирован'));
+      throw new Error('Пользователь уже зарегистрирован');
     }
-    return Promise.reject(new Error('Что-то пошло не так'));
+    throw new Error('Что-то пошло не так');
   }
 
   async signIn(user) {
@@ -47,12 +46,12 @@ class MainApi {
       return handleResponse(res);
     }
     if (res.status === 400) {
-      return Promise.reject(new Error('Что-то не так с данными авторизации, пожалуйста, проверьте формат'));
+      throw new Error('Что-то не так с введенными данными...');
     }
     if (res.status === 401) {
-      return Promise.reject(new Error('Неверный логин или пароль'));
+      throw new Error('Неверный логин или пароль');
     }
-    return Promise.reject(new Error('Что-то пошло не так'));
+    throw new Error('Что-то пошло не так');
   }
 
   async likeMovie({
@@ -124,7 +123,13 @@ class MainApi {
       },
       body: JSON.stringify(profile),
     });
-    return handleResponse(res);
+    if (res.status === 200) {
+      return handleResponse(res);
+    }
+    if (res.status === 400) {
+      throw new Error('Что-то не так с введенными данными...');
+    }
+    throw new Error('Ой, что-то пошло не так :(');
   }
 
   async signOut() {
@@ -135,7 +140,9 @@ class MainApi {
         'Content-Type': 'application/json',
       },
     });
-    return handleResponse(res);
+    if (!res.ok) {
+      throw new Error(res.message);
+    }
   }
 }
 
