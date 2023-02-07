@@ -44,6 +44,16 @@
   border-radius: 9px;
   }
 
+.search-form__error {
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  margin: 10px 0 0;
+  color: #EE3465;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
 .search-form__input:focus + .search-form__focus-bg{
   transition: 0.3s ease-out;
   opacity: 1;

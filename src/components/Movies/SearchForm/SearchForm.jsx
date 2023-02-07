@@ -8,10 +8,30 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
   const initialParams = initialQueryParams || { query: '', isShortMovie: false };
   const [query, setQuery] = useState(initialParams.query);
   const [isShortMovie, setIsShortMovie] = useState(initialParams.isShortMovie);
+  const [error, setError] = useState('');
+  const [isDirty, setIsDirty] = useState(false);
+
+  const setErrorMessage = () => {
+    setError('Нужно ввести ключевое слово');
+  };
+
+  const handleInput = ({ target }) => {
+    setQuery(target.value);
+    setIsDirty(true);
+    setError('');
+    if (target.value === '') {
+      setErrorMessage();
+    }
+  };
+  const isButtonDisabled = query === '' && isDirty;
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await onSearch({ query, isShortMovie });
+    if (query === '') {
+      setErrorMessage();
+    } else {
+      await onSearch({ query, isShortMovie });
+    }
   };
   return (
     <section className="search-form__container">
@@ -21,12 +41,19 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
           value={query}
           className="search-form__input"
           type="search"
-          onInput={({ target }) => setQuery(target.value)}
+          onInput={handleInput}
           placeholder="Фильм"
           required
         />
         <span className="search-form__focus-bg" />
-        <Button className="search-form__btn" type="submit" aria-label="Поиск" onClick={handleSearch}>
+        <p className="search-form__error">{error}</p>
+        <Button
+          className="search-form__btn"
+          type="submit"
+          aria-label="Поиск"
+          onClick={handleSearch}
+          disabled={isButtonDisabled}
+        >
           <Magnifier className="search-form__magnifier" fill="white" />
         </Button>
         <div className="search-form__divider" />
