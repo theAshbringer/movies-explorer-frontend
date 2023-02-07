@@ -13,13 +13,9 @@ export default function ProfilePage({ onEditProfile }) {
   });
 
   const handleEditProfile = async (newData) => {
-    try {
-      const updatedProfile = await mainApi.updateProfile(newData);
-      setProfile(updatedProfile);
-      onEditProfile(updatedProfile);
-    } catch (error) {
-      console.error('Не удалось обновить данные профиля. Попробуйте позже');
-    }
+    const updatedProfile = await mainApi.updateProfile(newData);
+    setProfile(updatedProfile);
+    onEditProfile(updatedProfile);
   };
 
   const handleLogout = async () => {

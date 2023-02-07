@@ -9,11 +9,17 @@ import PageTitle from '../../../shared/PageTitle/PageTitle';
 import './Profile.css';
 import { validationMsg } from '../../../utils/const';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
+import InfoModal from '../../../shared/Modal/InfoModal/InfoModal';
 
 export default function Profile({ data: { name, email }, onSave, onLogout }) {
   const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isSuccess: false,
+    message: '',
+  });
 
   const schema = yup.object({
     email: yup.string().email(validationMsg.email),
@@ -39,9 +45,21 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
     navigate('/');
   };
 
-  const handleSave = async (newData) => {
-    await onSave(newData);
-    setIsEdit(false);
+  const handleSave = async (newData, e) => {
+    e.preventDefault();
+    try {
+      await onSave(newData);
+      setModalState({ isOpen: true, isSuccess: true, message: 'Данные обновлены!' });
+    } catch (error) {
+      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    }
+  };
+
+  const handleModal = () => {
+    if (modalState.isSuccess) {
+      setIsEdit(false);
+    }
+    setModalState({ ...modalState, isOpen: false });
   };
 
   useEffect(() => {
@@ -128,6 +146,7 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
       {!isEdit
         ? profileData
         : editForm}
+      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
     </section>
   );
 }
