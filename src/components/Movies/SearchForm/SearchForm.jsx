@@ -3,6 +3,8 @@ import ToggleSlider from '../../../shared/ToggleSlider/ToggleSlider';
 import './SearchForm.css';
 import { ReactComponent as Magnifier } from '../../../images/lupa.svg';
 import Button from '../../../shared/Button/Button';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
+import './SearchForm.css';
 
 function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
   const initialParams = initialQueryParams || { query: '', isShortMovie: false };
@@ -57,7 +59,7 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
           required
         />
         <span className="search-form__focus-bg" />
-        <p className="search-form__error">{error}</p>
+        <ErrorMessage className="search-form__error">{error}</ErrorMessage>
         <Button
           className="search-form__btn"
           type="submit"
