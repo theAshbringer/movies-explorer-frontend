@@ -21,11 +21,11 @@ export default function Movies() {
   const initLimit = useCallback(() => {
     let limit = 12;
     let moreNumber = 3;
-    if (width > 480 && width <= 768) {
+    if (width > 500 && width <= 900) {
       limit = 8;
       moreNumber = 2;
     }
-    if (width <= 480) {
+    if (width <= 500) {
       limit = 5;
       moreNumber = 1;
     }

@@ -7,27 +7,27 @@
   margin: 0;
   padding: 70px 70px 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(339px, 1fr));
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
   gap: 37px 24px;
   list-style: none;
 }
 
-@media screen and (min-width: 650px) and (max-width: 850px)  {
+@media screen and (min-width: 501px) and (max-width: 900px)  {
 
   .movies__cards {
     padding: 70px 30px 30px;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
     gap: 30px;
   }
-  
+
 }
 
-@media screen and (max-width: 650px)  {
+@media screen and (max-width: 500px)  {
 
   .movies__cards {
     padding: 40px 10px 26px;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
     gap: 14px;
   }
-  
+
 }

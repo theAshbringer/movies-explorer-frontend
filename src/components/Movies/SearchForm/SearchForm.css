@@ -29,7 +29,6 @@
   flex: 1 1 auto;
   font-size: 18px;
   line-height: 1.11;
-  z-index: 1;
 }
 
 .search-form__focus-bg{
@@ -39,14 +38,14 @@
   width: 0;
   height: 100%;
   background-color: #91aff042;
-  transition: 0.3s ease-in; 
+  transition: 0.3s ease-in;
   opacity: 0.2;
   z-index: -1;
   border-radius: 9px;
   }
 
 .search-form__input:focus + .search-form__focus-bg{
-  transition: 0.3s ease-out; 
+  transition: 0.3s ease-out;
   opacity: 1;
   width: 100%;
 }
@@ -100,7 +99,7 @@
   .search-form {
     padding: 16px 20px 16px 28px;
   }
-  
+
 }
 
 
