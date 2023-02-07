@@ -39,8 +39,8 @@ export default function Login({ onLogin }) {
       if (!(data.email && data.password)) {
         throw new Error('Введите имя и пароль');
       }
-      await mainApi.signIn(data);
-      onLogin();
+      const { data: { name, email } } = await mainApi.signIn(data);
+      onLogin({ name, email });
       navigate('/');
       reset();
     } catch (error) {

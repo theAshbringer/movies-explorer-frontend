@@ -23,8 +23,9 @@ function App() {
     setIsLoggedIn,
   }));
 
-  const handleLogin = () => {
+  const handleLogin = (currentUserData) => {
     setIsLoggedIn(true);
+    setCurrentUser(currentUserData);
   };
 
   const handleEditProfile = (newProfile) => {
