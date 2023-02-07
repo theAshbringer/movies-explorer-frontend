@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ToggleSlider from '../../../shared/ToggleSlider/ToggleSlider';
 import './SearchForm.css';
 import { ReactComponent as Magnifier } from '../../../images/lupa.svg';
@@ -25,14 +25,25 @@ function SearchForm({ onSearch, initialQueryParams = null, className = '' }) {
   };
   const isButtonDisabled = query === '' && isDirty;
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
+  const doSearch = async () => {
     if (query === '') {
       setErrorMessage();
     } else {
       await onSearch({ query, isShortMovie });
     }
   };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    doSearch();
+  };
+
+  useEffect(() => {
+    if (query) {
+      doSearch();
+    }
+  }, [isShortMovie]);
+
   return (
     <section className="search-form__container">
       <form className={`search-form ${className}`}>
