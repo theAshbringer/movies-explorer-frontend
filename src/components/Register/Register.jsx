@@ -14,6 +14,7 @@ import mainApi from '../../utils/MainApi';
 export default function Register({ onLogin }) {
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
     name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
@@ -29,10 +30,11 @@ export default function Register({ onLogin }) {
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const isButtonDisabled = !isDirty || !isValid;
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setIsFetching(true);
     try {
       await mainApi.signUp(data);
       try {
@@ -48,6 +50,8 @@ export default function Register({ onLogin }) {
       reset();
     } catch (err) {
       setError(err.message);
+    } finally {
+      setIsFetching(false);
     }
   };
 

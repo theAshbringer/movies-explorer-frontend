@@ -20,6 +20,7 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
     isSuccess: false,
     message: '',
   });
+  const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
     email: yup.string().email(validationMsg.email),
@@ -33,7 +34,7 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const isButtonDisabled = !isDirty || !isValid;
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
 
   const handleEdit = () => {
     setIsEdit(true);
@@ -47,11 +48,14 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
 
   const handleSave = async (newData, e) => {
     e.preventDefault();
+    setIsFetching(true);
     try {
       await onSave(newData);
       setModalState({ isOpen: true, isSuccess: true, message: 'Данные обновлены!' });
     } catch (error) {
       setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    } finally {
+      setIsFetching(false);
     }
   };
 

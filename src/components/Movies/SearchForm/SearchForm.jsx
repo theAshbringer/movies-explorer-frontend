@@ -11,6 +11,7 @@ function SearchForm({
   isShortMovie,
   onSearch,
   setIsShortMovie,
+  isFetching,
   className = '',
 }) {
   const [error, setError] = useState('');
@@ -25,7 +26,7 @@ function SearchForm({
     setIsDirty(true);
     setError('');
   };
-  const isButtonDisabled = query === '' && isDirty;
+  const isButtonDisabled = isFetching || (query === '' && isDirty);
 
   const doSearch = async () => {
     if (query === '') {

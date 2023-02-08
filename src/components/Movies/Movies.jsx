@@ -42,6 +42,7 @@ export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState(initialSearchQuery.query);
   const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
+  const [isFetching, setIsFetching] = useState(false);
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
@@ -58,6 +59,7 @@ export default function Movies() {
 
   const handleLikeClick = async (movie, isLiked) => {
     try {
+      setIsFetching(true);
       if (!isLiked) {
         const savedMovie = await mainApi.likeMovie(movie);
         setSavedMovies((state) => [...state, savedMovie]);
@@ -69,6 +71,8 @@ export default function Movies() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -94,11 +98,11 @@ export default function Movies() {
   const resultSection = (
     <>
       {displayedMovies.length !== 0 && (
-      <MoviesCardList
-        movies={displayedMovies}
-        savedMovies={savedMovies}
-        onButtonClick={handleLikeClick}
-      />
+        <MoviesCardList
+          movies={displayedMovies}
+          savedMovies={savedMovies}
+          onButtonClick={handleLikeClick}
+        />
       )}
       {hasNoResults && <p>Ничего не найдено</p>}
       {isMoreBtnVisible
@@ -118,6 +122,7 @@ export default function Movies() {
           isShortMovie={isShortMovie}
           setIsShortMovie={setIsShortMovie}
           onSearch={handleSearch}
+          isFetching={isFetching}
         />
         <Divider />
         {isLoading
