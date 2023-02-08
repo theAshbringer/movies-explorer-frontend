@@ -6,23 +6,26 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../shared/Button/Button';
 import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
-import './Profile.css';
-import { validationMsg } from '../../../utils/const';
+import { VALIDATION_MSG } from '../../../utils/const';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 import InfoModal from '../../../shared/Modal/InfoModal/InfoModal';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
+import './Profile.css';
 
 export default function Profile({ data: { name, email }, onSave, onLogout }) {
   const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
+  const [error, setError] = useState(false);
   const [modalState, setModalState] = useState({
     isOpen: false,
     isSuccess: false,
     message: '',
   });
+  const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
-    email: yup.string().email(validationMsg.email),
+    email: yup.string().email(VALIDATION_MSG.email),
     name: yup.string(),
   }).required();
 
@@ -33,25 +36,33 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const isButtonDisabled = !isDirty || !isValid;
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
 
   const handleEdit = () => {
     setIsEdit(true);
   };
 
   const handleSignOut = async () => {
-    await onLogout();
-    setIsLoggedIn(false);
-    navigate('/');
+    setError('');
+    try {
+      await onLogout();
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch {
+      setError('Не удалось осуществить запрос. Попробуйте позже');
+    }
   };
 
   const handleSave = async (newData, e) => {
     e.preventDefault();
+    setIsFetching(true);
     try {
       await onSave(newData);
       setModalState({ isOpen: true, isSuccess: true, message: 'Данные обновлены!' });
-    } catch (error) {
-      setModalState({ isOpen: true, isSuccess: false, message: error.message });
+    } catch (err) {
+      setModalState({ isOpen: true, isSuccess: false, message: err.message });
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -93,6 +104,7 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
       >
         Выйти из аккаунта
       </Button>
+      {error && <ErrorMessage className="profile__error">{error}</ErrorMessage>}
     </>
   );
 

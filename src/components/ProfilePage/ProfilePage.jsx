@@ -19,11 +19,7 @@ export default function ProfilePage({ onEditProfile }) {
   };
 
   const handleLogout = async () => {
-    try {
-      await mainApi.signOut();
-    } catch (error) {
-      console.error('Не удалось осуществить запрос. Попробуйте позже');
-    }
+    await mainApi.signOut();
   };
 
   useEffect(() => {

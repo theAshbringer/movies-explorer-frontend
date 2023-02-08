@@ -1,8 +1,12 @@
-import { moviesApiUrl } from './const';
+import { MOVIES_API_URL } from './const';
 
 const handleResponse = (res) => {
   if (!res.ok) {
-    throw new Error(res.message);
+    if (res.message) {
+      throw new Error(res.message);
+    } else {
+      throw new Error('Ошибка');
+    }
   }
   return res.json();
 };
@@ -70,12 +74,12 @@ class MainApi {
         duration,
         year,
         description,
-        image: [moviesApiUrl, image.url].join(''),
+        image: [MOVIES_API_URL, image.url].join(''),
         trailerLink,
         nameRU,
         nameEN,
         movieId: id,
-        thumbnail: [moviesApiUrl, image.url].join(''),
+        thumbnail: [MOVIES_API_URL, image.url].join(''),
       }),
     });
     return handleResponse(res);
@@ -100,6 +104,9 @@ class MainApi {
         'Content-Type': 'application/json',
       },
     });
+    if (res.status === 404) {
+      throw new Error('Ошибка в URL');
+    }
     return handleResponse(res);
   }
 

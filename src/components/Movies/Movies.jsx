@@ -10,13 +10,11 @@ import './Movies.css';
 import useWidth from '../../utils/hooks/useWidth';
 import mainApi from '../../utils/MainApi';
 import filterByQuery from '../../utils/filterByQuery';
-import useMovies from '../../utils/hooks/useMovies';
-import useSavedMovies from '../../utils/hooks/useSavedMovies';
+import moviesApi from '../../utils/MoviesApi';
+import { LOCAL_STORAGE } from '../../utils/const';
 
 export default function Movies() {
   const width = useWidth();
-  const movies = useMovies();
-  const [savedMovies, setSavedMovies] = useSavedMovies();
 
   const initLimit = useCallback(() => {
     let limit = 12;
@@ -32,23 +30,47 @@ export default function Movies() {
     return { limit, moreNumber };
   }, [width]);
 
-  const initialSearchQuery = JSON.parse(localStorage.getItem('queryParams'));
+  const initialSearchQuery = JSON.parse(localStorage.getItem(LOCAL_STORAGE.QUERY_PARAMS)) || { query: '', isShortMovie: false };
 
-  const initMovies = JSON.parse(localStorage.getItem('searchedMovies')) || [];
+  const initMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE.SEARCHED_MOVIES)) || [];
   const [filteredMovies, setFilteredMovies] = useState(initMovies);
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [limit, setLimit] = useState(initLimit().limit);
   const [moreNumber, setMoreNumber] = useState(initLimit().moreNumber);
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState(initialSearchQuery.query);
+  const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
+  const [error, setError] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
+  const hasNoResults = displayedMovies.length === 0 && query !== '';
 
-  const handleSearch = async (queryParams) => {
-    localStorage.setItem('queryParams', JSON.stringify(queryParams));
+  const loadMovies = async () => {
+    let loadedMovies;
+    if (localStorage.getItem(LOCAL_STORAGE.LOADED_MOVIES)) {
+      loadedMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE.LOADED_MOVIES));
+    } else {
+      loadedMovies = await moviesApi.getMovies();
+      localStorage.setItem(LOCAL_STORAGE.LOADED_MOVIES, JSON.stringify(loadedMovies));
+    }
+    return loadedMovies;
+  };
+
+  const handleSearch = async () => {
     setIsLoading(true);
-    setFilteredMovies(filterByQuery(movies, queryParams));
-    setIsLoading(false);
+    try {
+      const loadedMovies = await loadMovies();
+      const filteredResult = filterByQuery(loadedMovies, { query, isShortMovie });
+      setFilteredMovies(filteredResult);
+      localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
+      localStorage.setItem(LOCAL_STORAGE.SEARCHED_MOVIES, JSON.stringify(filteredResult));
+    } catch (err) {
+      setError('Не удалось загрузить фильмы');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLikeClick = async (movie, isLiked) => {
@@ -62,8 +84,8 @@ export default function Movies() {
         await mainApi.deleteMovie(idToDelete);
         setSavedMovies((state) => state.filter((m) => m.movieId !== movie.id));
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      setError('Упс, попробуйте еще раз');
     }
   };
 
@@ -72,8 +94,8 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    localStorage.setItem('searchedMovies', JSON.stringify(filteredMovies));
-  }, [filteredMovies]);
+    handleSearch();
+  }, [isShortMovie]);
 
   useEffect(() => {
     setDisplayedMovies(filteredMovies.slice(0, limit));
@@ -84,30 +106,47 @@ export default function Movies() {
     if (filteredMovies.length === 0) { setLimit(initLimit().limit); }
   }, [width, filteredMovies, initLimit]);
 
+  useEffect(() => {
+    mainApi.getSavedMovies()
+      .then((saved) => setSavedMovies(saved))
+      .catch((err) => setError('Ошибка при загрузке сохраненных фильмов'));
+  }, []);
+
+  const resultSection = (
+    <>
+      {displayedMovies.length !== 0 && (
+        <MoviesCardList
+          movies={displayedMovies}
+          savedMovies={savedMovies}
+          onButtonClick={handleLikeClick}
+        />
+      )}
+      {hasNoResults && <p>Ничего не найдено</p>}
+      {isMoreBtnVisible
+        && (
+          <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
+        )}
+    </>
+  );
+
   return (
     <div className="movies-page">
       <Header isLoggedIn />
       <main className="movies-page__main">
-        <SearchForm initialQueryParams={initialSearchQuery} onSearch={handleSearch} />
+        <SearchForm
+          query={query}
+          setQuery={setQuery}
+          isShortMovie={isShortMovie}
+          setIsShortMovie={setIsShortMovie}
+          onSearch={handleSearch}
+          isFetching={isLoading}
+          error={error}
+          setError={setError}
+        />
         <Divider />
         {isLoading
           ? <Preloader />
-          : (
-            <>
-              {displayedMovies.length !== 0
-                && (
-                  <MoviesCardList
-                    movies={displayedMovies}
-                    savedMovies={savedMovies}
-                    onButtonClick={handleLikeClick}
-                  />
-                )}
-              {isMoreBtnVisible
-                && (
-                  <Button className="movies-page__more" type="button" onClick={handleMore}>Ещё</Button>
-                )}
-            </>
-          )}
+          : resultSection}
       </main>
       <Footer />
     </div>

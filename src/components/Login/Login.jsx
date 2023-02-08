@@ -8,16 +8,17 @@ import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Login.css';
-import { validationMsg } from '../../utils/const';
+import { VALIDATION_MSG } from '../../utils/const';
 import mainApi from '../../utils/MainApi';
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
-    email: yup.string().email(validationMsg.email).required(validationMsg.required),
-    password: yup.string().required(validationMsg.required),
+    email: yup.string().email(VALIDATION_MSG.email).required(VALIDATION_MSG.required),
+    password: yup.string().required(VALIDATION_MSG.required),
   }).required();
   const {
     register,
@@ -26,10 +27,11 @@ export default function Login({ onLogin }) {
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const isButtonDisabled = !isDirty || !isValid;
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setIsFetching(true);
     try {
       if (!(data.email && data.password)) {
         throw new Error('Введите имя и пароль');
@@ -40,6 +42,8 @@ export default function Login({ onLogin }) {
       reset();
     } catch (err) {
       setError(err.message);
+    } finally {
+      setIsFetching(false);
     }
   };
 

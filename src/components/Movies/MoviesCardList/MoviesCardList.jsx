@@ -1,6 +1,6 @@
 import React from 'react';
 import MyLink from '../../../shared/MyLink/MyLink';
-import { moviesApiUrl } from '../../../utils/const';
+import { MOVIES_API_URL } from '../../../utils/const';
 import { getDurationFromMinutes } from '../../../utils/getDurationfromMinutes';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
@@ -18,7 +18,7 @@ function MoviesCardList({
       <ul className="movies__cards">
         {movies.map((movie) => {
           const isSaved = type === 'main' ? savedMoviesId.includes(movie.id) : '';
-          const imageLink = type === 'main' ? [moviesApiUrl, movie.image.url].join('') : movie.image;
+          const imageLink = type === 'main' ? [MOVIES_API_URL, movie.image.url].join('') : movie.image;
           return (
             <li key={movie._id ?? movie.id}>
               <MyLink
