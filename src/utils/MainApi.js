@@ -1,4 +1,4 @@
-import { moviesApiUrl } from './const';
+import { MOVIES_API_URL } from './const';
 
 const handleResponse = (res) => {
   if (!res.ok) {
@@ -74,12 +74,12 @@ class MainApi {
         duration,
         year,
         description,
-        image: [moviesApiUrl, image.url].join(''),
+        image: [MOVIES_API_URL, image.url].join(''),
         trailerLink,
         nameRU,
         nameEN,
         movieId: id,
-        thumbnail: [moviesApiUrl, image.url].join(''),
+        thumbnail: [MOVIES_API_URL, image.url].join(''),
       }),
     });
     return handleResponse(res);

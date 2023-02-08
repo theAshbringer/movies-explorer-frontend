@@ -8,7 +8,7 @@ import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Login.css';
-import { validationMsg } from '../../utils/const';
+import { VALIDATION_MSG } from '../../utils/const';
 import mainApi from '../../utils/MainApi';
 
 export default function Login({ onLogin }) {
@@ -17,8 +17,8 @@ export default function Login({ onLogin }) {
   const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
-    email: yup.string().email(validationMsg.email).required(validationMsg.required),
-    password: yup.string().required(validationMsg.required),
+    email: yup.string().email(VALIDATION_MSG.email).required(VALIDATION_MSG.required),
+    password: yup.string().required(VALIDATION_MSG.required),
   }).required();
   const {
     register,

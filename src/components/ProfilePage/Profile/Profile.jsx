@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../shared/Button/Button';
 import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
-import { validationMsg } from '../../../utils/const';
+import { VALIDATION_MSG } from '../../../utils/const';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 import InfoModal from '../../../shared/Modal/InfoModal/InfoModal';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
@@ -25,7 +25,7 @@ export default function Profile({ data: { name, email }, onSave, onLogout }) {
   const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
-    email: yup.string().email(validationMsg.email),
+    email: yup.string().email(VALIDATION_MSG.email),
     name: yup.string(),
   }).required();
 

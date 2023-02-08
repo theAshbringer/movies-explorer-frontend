@@ -8,7 +8,7 @@ import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Register.css';
-import { nameRegExp, validationMsg } from '../../utils/const';
+import { NAME_REGEXP, VALIDATION_MSG } from '../../utils/const';
 import mainApi from '../../utils/MainApi';
 
 export default function Register({ onLogin }) {
@@ -17,10 +17,10 @@ export default function Register({ onLogin }) {
   const [isFetching, setIsFetching] = useState(false);
 
   const schema = yup.object({
-    name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
-      .matches(nameRegExp, 'Имя может содержать только буквы, дефис и пробел'),
-    email: yup.string().email(validationMsg.email).required(validationMsg.required),
-    password: yup.string().required(validationMsg.required),
+    name: yup.string().required(VALIDATION_MSG.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
+      .matches(NAME_REGEXP, 'Имя может содержать только буквы, дефис и пробел'),
+    email: yup.string().email(VALIDATION_MSG.email).required(VALIDATION_MSG.required),
+    password: yup.string().required(VALIDATION_MSG.required),
   }).required();
 
   const {
