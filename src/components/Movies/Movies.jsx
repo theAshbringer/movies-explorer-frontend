@@ -41,6 +41,7 @@ export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState(initialSearchQuery.query);
   const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
+  const [error, setError] = useState('');
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
@@ -66,7 +67,7 @@ export default function Movies() {
       localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
       localStorage.setItem('searchedMovies', JSON.stringify(filteredResult));
     } catch (err) {
-      console.error('Не удалось загрузить фильмы');
+      setError('Не удалось загрузить фильмы');
     } finally {
       setIsLoading(false);
     }
@@ -83,8 +84,8 @@ export default function Movies() {
         await mainApi.deleteMovie(idToDelete);
         setSavedMovies((state) => state.filter((m) => m.movieId !== movie.id));
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      setError('Упс, попробуйте еще раз');
     }
   };
 
@@ -135,6 +136,8 @@ export default function Movies() {
           setIsShortMovie={setIsShortMovie}
           onSearch={handleSearch}
           isFetching={isLoading}
+          error={error}
+          setError={setError}
         />
         <Divider />
         {isLoading

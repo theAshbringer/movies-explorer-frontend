@@ -12,9 +12,10 @@ function SearchForm({
   onSearch,
   setIsShortMovie,
   isFetching,
+  error,
+  setError,
   className = '',
 }) {
-  const [error, setError] = useState('');
   const [isDirty, setIsDirty] = useState(false);
 
   const setErrorMessage = () => {
