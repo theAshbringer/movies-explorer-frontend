@@ -93,9 +93,7 @@ export default function Movies() {
   };
 
   useEffect(() => {
-    if (displayedMovies.length !== 0) {
       handleSearch();
-    }
   }, [isShortMovie]);
 
   useEffect(() => {
