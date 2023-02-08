@@ -2,7 +2,11 @@ import { moviesApiUrl } from './const';
 
 const handleResponse = (res) => {
   if (!res.ok) {
-    throw new Error(res.message);
+    if (res.message) {
+      throw new Error(res.message);
+    } else {
+      throw new Error('Ошибка');
+    }
   }
   return res.json();
 };
@@ -100,6 +104,9 @@ class MainApi {
         'Content-Type': 'application/json',
       },
     });
+    if (res.status === 404) {
+      throw new Error('Ошибка в URL');
+    }
     return handleResponse(res);
   }
 

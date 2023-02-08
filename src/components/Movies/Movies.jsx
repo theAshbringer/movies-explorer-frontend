@@ -10,12 +10,10 @@ import './Movies.css';
 import useWidth from '../../utils/hooks/useWidth';
 import mainApi from '../../utils/MainApi';
 import filterByQuery from '../../utils/filterByQuery';
-import useSavedMovies from '../../utils/hooks/useSavedMovies';
 import moviesApi from '../../utils/MoviesApi';
 
 export default function Movies() {
   const width = useWidth();
-  const [savedMovies, setSavedMovies] = useSavedMovies();
 
   const initLimit = useCallback(() => {
     let limit = 12;
@@ -42,6 +40,7 @@ export default function Movies() {
   const [query, setQuery] = useState(initialSearchQuery.query);
   const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
   const [error, setError] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
@@ -107,6 +106,12 @@ export default function Movies() {
     setMoreNumber(initLimit().moreNumber);
     if (filteredMovies.length === 0) { setLimit(initLimit().limit); }
   }, [width, filteredMovies, initLimit]);
+
+  useEffect(() => {
+    mainApi.getSavedMovies()
+      .then((saved) => setSavedMovies(saved))
+      .catch((err) => setError('Ошибка при загрузке сохраненных фильмов'));
+  }, []);
 
   const resultSection = (
     <>
