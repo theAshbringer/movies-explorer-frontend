@@ -10,12 +10,11 @@ import './Movies.css';
 import useWidth from '../../utils/hooks/useWidth';
 import mainApi from '../../utils/MainApi';
 import filterByQuery from '../../utils/filterByQuery';
-import useMovies from '../../utils/hooks/useMovies';
 import useSavedMovies from '../../utils/hooks/useSavedMovies';
+import moviesApi from '../../utils/MoviesApi';
 
 export default function Movies() {
   const width = useWidth();
-  const movies = useMovies();
   const [savedMovies, setSavedMovies] = useSavedMovies();
 
   const initLimit = useCallback(() => {
@@ -42,24 +41,39 @@ export default function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState(initialSearchQuery.query);
   const [isShortMovie, setIsShortMovie] = useState(initialSearchQuery.isShortMovie);
-  const [isFetching, setIsFetching] = useState(false);
 
   const isMoreBtnVisible = displayedMovies.length > 3
     && displayedMovies.length < filteredMovies.length;
   const hasNoResults = displayedMovies.length === 0 && query !== '';
 
+  const loadMovies = async () => {
+    let loadedMovies;
+    if (localStorage.getItem('loadedMovies')) {
+      loadedMovies = JSON.parse(localStorage.getItem('loadedMovies'));
+    } else {
+      loadedMovies = await moviesApi.getMovies();
+      localStorage.setItem('loadedMovies', JSON.stringify(loadedMovies));
+    }
+    return loadedMovies;
+  };
+
   const handleSearch = async () => {
     setIsLoading(true);
-    const filteredResult = filterByQuery(movies, { query, isShortMovie });
-    setFilteredMovies(filteredResult);
-    setIsLoading(false);
-    localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
-    localStorage.setItem('searchedMovies', JSON.stringify(filteredResult));
+    try {
+      const loadedMovies = await loadMovies();
+      const filteredResult = filterByQuery(loadedMovies, { query, isShortMovie });
+      setFilteredMovies(filteredResult);
+      localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
+      localStorage.setItem('searchedMovies', JSON.stringify(filteredResult));
+    } catch (err) {
+      console.error('Не удалось загрузить фильмы');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLikeClick = async (movie, isLiked) => {
     try {
-      setIsFetching(true);
       if (!isLiked) {
         const savedMovie = await mainApi.likeMovie(movie);
         setSavedMovies((state) => [...state, savedMovie]);
@@ -71,8 +85,6 @@ export default function Movies() {
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsFetching(false);
     }
   };
 
@@ -122,7 +134,7 @@ export default function Movies() {
           isShortMovie={isShortMovie}
           setIsShortMovie={setIsShortMovie}
           onSearch={handleSearch}
-          isFetching={isFetching}
+          isFetching={isLoading}
         />
         <Divider />
         {isLoading
