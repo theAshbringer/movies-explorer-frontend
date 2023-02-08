@@ -12,6 +12,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import Preloader from '../../shared/Preloader/Preloader';
 import './App.css';
+import clearLocalStorage from '../../utils/clearLocalStorage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,8 +21,11 @@ function App() {
   const authData = useMemo(() => ({
     currentUser,
     isLoggedIn,
-    setIsLoggedIn,
-  }));
+    setIsLoggedIn: (newValue) => {
+      setIsLoggedIn(newValue);
+      clearLocalStorage();
+    },
+  }), [currentUser, isLoggedIn, setIsLoggedIn]);
 
   const handleLogin = (currentUserData) => {
     setIsLoggedIn(true);

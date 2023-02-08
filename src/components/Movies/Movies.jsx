@@ -11,6 +11,7 @@ import useWidth from '../../utils/hooks/useWidth';
 import mainApi from '../../utils/MainApi';
 import filterByQuery from '../../utils/filterByQuery';
 import moviesApi from '../../utils/MoviesApi';
+import { LOCAL_STORAGE } from '../../utils/const';
 
 export default function Movies() {
   const width = useWidth();
@@ -29,9 +30,9 @@ export default function Movies() {
     return { limit, moreNumber };
   }, [width]);
 
-  const initialSearchQuery = JSON.parse(localStorage.getItem('queryParams')) || { query: '', isShortMovie: false };
+  const initialSearchQuery = JSON.parse(localStorage.getItem(LOCAL_STORAGE.QUERY_PARAMS)) || { query: '', isShortMovie: false };
 
-  const initMovies = JSON.parse(localStorage.getItem('searchedMovies')) || [];
+  const initMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE.SEARCHED_MOVIES)) || [];
   const [filteredMovies, setFilteredMovies] = useState(initMovies);
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [limit, setLimit] = useState(initLimit().limit);
@@ -48,11 +49,11 @@ export default function Movies() {
 
   const loadMovies = async () => {
     let loadedMovies;
-    if (localStorage.getItem('loadedMovies')) {
-      loadedMovies = JSON.parse(localStorage.getItem('loadedMovies'));
+    if (localStorage.getItem(LOCAL_STORAGE.LOADED_MOVIES)) {
+      loadedMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE.LOADED_MOVIES));
     } else {
       loadedMovies = await moviesApi.getMovies();
-      localStorage.setItem('loadedMovies', JSON.stringify(loadedMovies));
+      localStorage.setItem(LOCAL_STORAGE.LOADED_MOVIES, JSON.stringify(loadedMovies));
     }
     return loadedMovies;
   };
@@ -64,7 +65,7 @@ export default function Movies() {
       const filteredResult = filterByQuery(loadedMovies, { query, isShortMovie });
       setFilteredMovies(filteredResult);
       localStorage.setItem('queryParams', JSON.stringify({ query, isShortMovie }));
-      localStorage.setItem('searchedMovies', JSON.stringify(filteredResult));
+      localStorage.setItem(LOCAL_STORAGE.SEARCHED_MOVIES, JSON.stringify(filteredResult));
     } catch (err) {
       setError('Не удалось загрузить фильмы');
     } finally {
@@ -93,7 +94,7 @@ export default function Movies() {
   };
 
   useEffect(() => {
-      handleSearch();
+    handleSearch();
   }, [isShortMovie]);
 
   useEffect(() => {
