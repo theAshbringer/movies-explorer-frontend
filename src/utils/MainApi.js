@@ -13,8 +13,7 @@ const handleResponse = (res) => {
 
 class MainApi {
   constructor() {
-    // this.baseUrl = 'https://api.fordragon.movies.nomoredomains.club';
-    this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = 'https://api.fordragon.movies.nomoredomains.club';
   }
 
   async signUp(user) {
