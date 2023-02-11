@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from '../Button/Button';
 import MyLink from '../MyLink/MyLink';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import './SubmitSection.css';
 
-function SubmitSection({ onSubmit, isRegistered = false }) {
+function SubmitSection({ isButtonDisabled, isRegistered = false, error = '' }) {
   const alreadyRegistered = {
     text: 'Уже зарегистрированы?',
     link: '/sign-in',
@@ -22,7 +23,9 @@ function SubmitSection({ onSubmit, isRegistered = false }) {
 
   return (
     <div className="submit-section">
-      <Button mode="solidWide" className="submit-section__submit" onSubmit={onSubmit}>{content.buttonText}</Button>
+      {error
+      && <ErrorMessage className="submit-section__error">{error}</ErrorMessage>}
+      <Button mode="solidWide" className="submit-section__submit" disabled={isButtonDisabled}>{content.buttonText}</Button>
       <div className="submit-section__container">
         <p className="submit-section__text">{content.text}</p>
         <MyLink className="submit-section__link" to={content.link}>{content.linkText}</MyLink>

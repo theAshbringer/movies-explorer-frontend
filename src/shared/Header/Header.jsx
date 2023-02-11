@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
 import Navigation from './Navigation/Navigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Modal from '../Modal/Modal';
 import MyLink from '../MyLink/MyLink';
 import Logo from '../Logo/Logo';
 import './Header.css';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-export default function Header({ isLoggedIn = false }) {
+export default function Header() {
+  const { isLoggedIn } = useContext(CurrentUserContext);
+
   const getWidth = () => window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth;
@@ -56,11 +58,3 @@ export default function Header({ isLoggedIn = false }) {
     </header>
   );
 }
-
-Header.propTypes = {
-  isLoggedIn: PropTypes.bool,
-};
-
-Header.defaultProps = {
-  isLoggedIn: false,
-};

@@ -1,7 +1,8 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
-import './AboutMe.css';
 import me from '../../../images/me.jpg';
+import MyLink from '../../../shared/MyLink/MyLink';
+import './AboutMe.css';
 
 function AboutMe() {
   return (
@@ -18,7 +19,7 @@ function AboutMe() {
             После того, как прошёл курс по веб&#8209;разработке,
             начал заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <p className="about-me__gh">Github</p>
+          <MyLink type="anchor" className="about-me__gh" href="https://github.com/theAshbringer">Github</MyLink>
         </div>
         <img className="about-me__photo" src={me} alt="Моё фото" />
       </article>

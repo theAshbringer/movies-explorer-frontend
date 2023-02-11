@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,44 +6,88 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../shared/Button/Button';
 import Input from '../../../shared/Input/Input';
 import PageTitle from '../../../shared/PageTitle/PageTitle';
+import { VALIDATION_MSG } from '../../../utils/const';
+import CurrentUserContext from '../../../contexts/CurrentUserContext';
+import InfoModal from '../../../shared/Modal/InfoModal/InfoModal';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import './Profile.css';
-import { validationMsg } from '../../../utils/const';
 
-export default function Profile() {
+export default function Profile({ data: { name, email }, onSave, onLogout }) {
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
+  const [error, setError] = useState(false);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isSuccess: false,
+    message: '',
+  });
+  const [isFetching, setIsFetching] = useState(false);
+
   const schema = yup.object({
-    email: yup.string().email(validationMsg.email),
+    email: yup.string().email(VALIDATION_MSG.email),
     name: yup.string(),
   }).required();
+
   const {
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid, isDirty },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
 
   const handleEdit = () => {
     setIsEdit(true);
   };
 
-  const handleSignOut = () => {
-    navigate('/');
+  const handleSignOut = async () => {
+    setError('');
+    try {
+      await onLogout();
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch {
+      setError('Не удалось осуществить запрос. Попробуйте позже');
+    }
   };
 
-  const handleSave = () => {
-    setIsEdit(false);
+  const handleSave = async (newData, e) => {
+    e.preventDefault();
+    setIsFetching(true);
+    try {
+      await onSave(newData);
+      setModalState({ isOpen: true, isSuccess: true, message: 'Данные обновлены!' });
+    } catch (err) {
+      setModalState({ isOpen: true, isSuccess: false, message: err.message });
+    } finally {
+      setIsFetching(false);
+    }
   };
+
+  const handleModal = () => {
+    if (modalState.isSuccess) {
+      setIsEdit(false);
+    }
+    setModalState({ ...modalState, isOpen: false });
+  };
+
+  useEffect(() => {
+    const defaultValues = { name, email };
+    reset({ ...defaultValues });
+  }, [name, email]);
 
   const profileData = (
     <>
       <div className="profile__data">
         <div className="profile__data-row">
           <p className="profile__field-name">Имя</p>
-          <p className="profile__field-value">Кристина</p>
+          <p className="profile__field-value">{name}</p>
         </div>
         <div className="profile__data-row">
           <p className="profile__field-name">E-mail</p>
-          <p className="profile__field-value">pochta@yandex.ru</p>
+          <p className="profile__field-value">{email}</p>
         </div>
       </div>
       <Button
@@ -60,11 +104,12 @@ export default function Profile() {
       >
         Выйти из аккаунта
       </Button>
+      {error && <ErrorMessage className="profile__error">{error}</ErrorMessage>}
     </>
   );
 
   const editForm = (
-    <form className="profile__edit-form">
+    <form className="profile__edit-form" onSubmit={handleSubmit(handleSave)}>
       <Input
         className="profile__input"
         type="text"
@@ -90,21 +135,30 @@ export default function Profile() {
         E-mail
       </Input>
       <Button
+        mode="solidWide"
         className="profile__button profile__button_type_save"
-        onClick={handleSubmit(handleSave)}
+        disabled={isButtonDisabled}
         type="submit"
       >
         Сохранить
+      </Button>
+      <Button
+        className="profile__button profile__button_type_cancel"
+        onClick={() => setIsEdit(false)}
+        type="button"
+      >
+        Отменить
       </Button>
     </form>
   );
 
   return (
     <section className="profile">
-      <PageTitle className="profile__title">Привет, пользователь!</PageTitle>
+      <PageTitle className="profile__title">{`Привет, ${name}!`}</PageTitle>
       {!isEdit
         ? profileData
         : editForm}
+      {modalState.isOpen && <InfoModal message={modalState.message} onClick={handleModal} />}
     </section>
   );
 }

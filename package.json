@@ -18,7 +18,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start -FAST_REFRESH=true",
+    "start": "set PORT=3005 && react-scripts start -FAST_REFRESH=true",
     "build": "react-scripts build",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",

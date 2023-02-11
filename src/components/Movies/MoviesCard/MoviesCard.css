@@ -1,7 +1,7 @@
 .movie {
   position: relative;
   display: grid;
-  grid-template-columns: auto min-content;
+  grid-template-columns: 1fr min-content;
   grid-template-rows: 203px min-content;
   grid-template-areas:
     "photo photo"
@@ -21,6 +21,7 @@
 .movie__title {
   padding: 16px 12px 0 16px;
   margin: 0;
+  max-width: 290px;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
@@ -34,6 +35,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   grid-area: photo;
 }
 
@@ -44,14 +46,14 @@
 }
 
 .movie__like {
-  margin: 0 24px 0 12px;
+  margin: 0 24px 0 0;
   align-self: end;
   grid-area: like;
 }
 
 .movie__delete {
   display: none;
-  margin: 0 24px 2px 23px;
+  margin: 0 24px 2px 0;
   align-self: end;
   grid-area: like;
 }

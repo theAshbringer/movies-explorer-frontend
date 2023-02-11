@@ -1,27 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../shared/Input/Input';
 import Logo from '../../shared/Logo/Logo';
 import PageTitle from '../../shared/PageTitle/PageTitle';
 import SubmitSection from '../../shared/SubmitSection/SubmitSection';
 import './Register.css';
-import { validationMsg } from '../../utils/const';
+import { NAME_REGEXP, VALIDATION_MSG } from '../../utils/const';
+import mainApi from '../../utils/MainApi';
 
-export default function Register() {
+export default function Register({ onLogin }) {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
+
   const schema = yup.object({
-    name: yup.string().required(validationMsg.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное'),
-    email: yup.string().email(validationMsg.email).required(validationMsg.required),
-    password: yup.string().required(validationMsg.required),
+    name: yup.string().required(VALIDATION_MSG.required).min(2, 'Имя не может быть короче двух букв').max(30, 'Имя слишком длинное')
+      .matches(NAME_REGEXP, 'Имя может содержать только буквы, дефис и пробел'),
+    email: yup.string().email(VALIDATION_MSG.email).required(VALIDATION_MSG.required),
+    password: yup.string().required(VALIDATION_MSG.required),
   }).required();
+
   const {
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid, isDirty },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+
+  const isButtonDisabled = isFetching || !isDirty || !isValid;
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    setIsFetching(true);
+    try {
+      await mainApi.signUp(data);
+      try {
+        const { data: currentUser } = await mainApi.signIn({
+          email: data.email,
+          password: data.password,
+        });
+        onLogin(currentUser);
+        navigate('/movies');
+      } catch {
+        navigate('/sign-in');
+      }
+      reset();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
   return (
-    <main className="register">
+    <form className="register" onSubmit={handleSubmit(onSubmit)}>
       <Logo className="register__logo" />
       <PageTitle className="register__title">Добро пожаловать!</PageTitle>
       <Input
@@ -60,7 +95,7 @@ export default function Register() {
       >
         Пароль
       </Input>
-      <SubmitSection isRegistered onSubmit={handleSubmit()} />
-    </main>
+      <SubmitSection error={error} isButtonDisabled={isButtonDisabled} isRegistered />
+    </form>
   );
 }
